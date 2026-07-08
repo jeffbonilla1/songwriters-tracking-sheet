@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Publishing Ledger — Songwriters Tracking Sheets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --case:#182e2b;
+  --case-2:#213f3a;
+  --case-3:#0f211e;
+  --brass:#c68a3d;
+  --brass-light:#e8c07f;
+  --paper:#eef1ec;
+  --ink:#182420;
+  --ink-2:#42524b;
+  --muted:#70817a;
+  --surface:#ffffff;
+  --border:#dbe2dc;
+  --vu-green:#4d8a58;
+  --vu-amber:#d9a13b;
+  --vu-red:#b8453a;
+  --f-disp:'Big Shoulders Display',sans-serif;
+  --f-body:'Inter',system-ui,sans-serif;
+  --f-mono:'IBM Plex Mono',monospace;
+  --shadow:0 2px 14px rgba(15,33,30,.08);
+  --shadow-lg:0 10px 34px rgba(15,33,30,.14);
+}
+html{font-size:14px}
+body{font-family:var(--f-body);background:var(--paper);color:var(--ink);min-height:100vh}
+
+.hdr{background:var(--case-3);padding:0 32px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(198,138,61,.25)}
+.hdr-left{display:flex;align-items:center;gap:14px}
+.reel-mark{width:30px;height:30px;flex-shrink:0}
+.reel-mark svg{width:100%;height:100%}
+.hdr-word{font-family:var(--f-disp);font-weight:700;font-size:19px;letter-spacing:.5px;color:var(--paper);text-transform:uppercase}
+.hdr-word span{color:var(--brass)}
+.hdr-divider{width:1px;height:20px;background:rgba(238,241,236,.15)}
+.hdr-title{color:rgba(238,241,236,.55);font-size:11.5px;font-weight:500;letter-spacing:.4px;font-family:var(--f-mono)}
+.hdr-right{display:flex;align-items:center;gap:10px}
+.hdr-btn{display:flex;align-items:center;gap:7px;padding:8px 15px;border-radius:7px;border:none;font-family:var(--f-body);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
+.hdr-btn.outline{background:rgba(238,241,236,.07);color:rgba(238,241,236,.8);border:1px solid rgba(238,241,236,.15)}
+.hdr-btn.outline:hover{background:rgba(238,241,236,.14)}
+.hdr-btn.primary{background:var(--brass);color:var(--case-3)}
+.hdr-btn.primary:hover{background:var(--brass-light)}
+
+.upload-zone{background:var(--case-2);border-bottom:1px solid rgba(198,138,61,.25);padding:14px 32px;display:none;align-items:center;gap:16px;flex-wrap:wrap}
+.upload-zone.open{display:flex}
+.upload-info{font-size:12px;color:rgba(238,241,236,.65);flex:1;line-height:1.6}
+.upload-info strong{color:var(--paper);display:block;margin-bottom:2px;font-family:var(--f-mono)}
+.file-pick{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;background:var(--brass);color:var(--case-3);border-radius:7px;font-size:12px;font-weight:700;cursor:pointer}
+.file-pick:hover{background:var(--brass-light)}
+#fileIn{display:none}
+.up-msg{font-size:11.5px;font-weight:600;padding:6px 12px;border-radius:6px;display:none;font-family:var(--f-mono)}
+.up-msg.ok{background:rgba(77,138,88,.18);color:#8fd39c;display:block}
+.up-msg.err{background:rgba(184,69,58,.18);color:#f0a99e;display:block}
+
+.hero{background:linear-gradient(180deg, rgba(15,33,30,.2) 0%, transparent 40%),radial-gradient(circle at 85% -10%, rgba(198,138,61,.16) 0%, transparent 55%),linear-gradient(135deg, var(--case) 0%, var(--case-3) 100%);padding:44px 32px 40px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;opacity:.5;background-image:repeating-linear-gradient(90deg, rgba(238,241,236,.025) 0 1px, transparent 1px 34px)}
+.hero-inner{position:relative;z-index:1;max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:end}
+.hero-eyebrow{font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--brass);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.hero-eyebrow::before{content:'';width:20px;height:1px;background:var(--brass)}
+.hero-title{font-family:var(--f-disp);font-size:38px;font-weight:800;color:var(--paper);line-height:1.02;margin-bottom:4px;text-transform:uppercase;letter-spacing:.3px;outline:none;border-radius:6px;padding:2px 6px;margin-left:-6px;cursor:text;transition:background .15s}
+.hero-title:hover{background:rgba(238,241,236,.06)}
+.hero-title:focus{background:rgba(238,241,236,.1);box-shadow:0 0 0 1px rgba(198,138,61,.5)}
+.hero-title-hint{font-family:var(--f-mono);font-size:10px;color:rgba(238,241,236,.35);margin-bottom:10px;letter-spacing:.3px}
+.hero-sub{font-size:13px;color:rgba(238,241,236,.62);line-height:1.6;margin-bottom:18px;max-width:520px}
+.hero-flag{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:8px;background:rgba(217,161,59,.14);border:1px solid rgba(217,161,59,.35);font-size:12px;color:var(--brass-light);font-weight:600}
+.hero-flag b{color:var(--paper);font-family:var(--f-mono)}
+
+.counter-box{background:var(--case-3);border:1px solid rgba(198,138,61,.3);border-radius:10px;padding:18px 22px;box-shadow:inset 0 2px 10px rgba(0,0,0,.4)}
+.counter-label{font-family:var(--f-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(238,241,236,.45);margin-bottom:8px}
+.counter-digits{font-family:var(--f-mono);font-weight:600;font-size:40px;color:var(--brass-light);text-shadow:0 0 18px rgba(232,192,127,.45);letter-spacing:.5px;line-height:1}
+.counter-foot{display:flex;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1px dashed rgba(238,241,236,.15)}
+.counter-stat{font-family:var(--f-mono)}
+.counter-stat-val{font-size:15px;font-weight:600;color:var(--paper)}
+.counter-stat-lbl{font-size:9.5px;color:rgba(238,241,236,.4);letter-spacing:.6px;text-transform:uppercase;margin-top:2px}
+
+.main{max-width:1240px;margin:0 auto;padding:26px 32px 56px}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:8px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 18px 16px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.kpi-label{font-family:var(--f-mono);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--muted)}
+.kpi-value{font-family:var(--f-disp);font-size:26px;font-weight:700;color:var(--ink);line-height:1;margin-top:8px}
+.kpi-sub{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.4}
+.kpi-accent{position:absolute;left:0;top:0;bottom:0;width:3px}
+
+.section-hdr{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px;margin-top:28px}
+.section-title{font-family:var(--f-disp);font-size:19px;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:.3px}
+.section-sub{font-size:11.5px;color:var(--muted);font-family:var(--f-mono)}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+.card-head{padding:16px 20px 12px;border-bottom:1px solid var(--border)}
+.card-title{font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:2px;text-transform:uppercase;letter-spacing:.4px}
+.card-sub{font-size:11px;color:var(--muted);line-height:1.5}
+.card-body{padding:16px 20px 18px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+
+.vu-list{display:flex;flex-direction:column;gap:14px}
+.vu-row{display:flex;flex-direction:column;gap:5px}
+.vu-row-top{display:flex;justify-content:space-between;align-items:baseline}
+.vu-name{font-size:12px;font-weight:600;color:var(--ink-2)}
+.vu-val{font-family:var(--f-mono);font-size:12px;font-weight:600;color:var(--ink)}
+.vu-track{display:flex;gap:2px;height:14px}
+.vu-seg{flex:1;border-radius:2px;background:#e6ebe6;transition:background .3s}
+.vu-seg.lit-g{background:var(--vu-green)}
+.vu-seg.lit-a{background:var(--vu-amber)}
+.vu-seg.lit-r{background:var(--vu-red)}
+
+/* ── PAYOUT DELAY TIMELINE (signature element) ── */
+.delay-list{display:flex;flex-direction:column;gap:10px}
+.delay-row{display:grid;grid-template-columns:170px 1fr 78px;align-items:center;gap:12px}
+.delay-name{font-size:12px;font-weight:600;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.delay-name span{display:block;font-size:10px;color:var(--muted);font-weight:400;font-family:var(--f-mono)}
+.delay-axis{position:relative;height:18px;background:#eef2ee;border-radius:5px;overflow:hidden}
+.delay-bar{position:absolute;top:0;bottom:0;left:0;border-radius:5px 0 0 5px;display:flex;align-items:center;justify-content:flex-end;padding-right:6px}
+.delay-bar.short{background:var(--vu-green)}
+.delay-bar.mid{background:var(--vu-amber)}
+.delay-bar.long{background:var(--vu-red)}
+.delay-bar-lbl{font-family:var(--f-mono);font-size:9px;color:rgba(255,255,255,.9);font-weight:700}
+.delay-val{font-family:var(--f-mono);font-size:11.5px;font-weight:700;color:var(--ink);text-align:right}
+.delay-legend{display:flex;gap:16px;margin-top:14px;padding-top:12px;border-top:1px dashed var(--border)}
+.delay-legend-item{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--muted);font-family:var(--f-mono)}
+.delay-legend-dot{width:8px;height:8px;border-radius:2px}
+
+.ledger-table{width:100%;border-collapse:separate;border-spacing:0}
+.ledger-table thead th{font-family:var(--f-mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);text-align:left;padding:0 14px 10px;font-weight:600;border-bottom:1px solid var(--border)}
+.ledger-table tbody tr{border-bottom:1px solid var(--border)}
+.ledger-table tbody tr:nth-child(odd){background:#f7f9f7}
+.ledger-table tbody tr:hover{background:#f0f4ee}
+.ledger-table tbody tr:last-child{border-bottom:none}
+.ledger-table td{padding:11px 14px;vertical-align:middle}
+.lg-track{font-size:12.5px;font-weight:700;color:var(--ink)}
+.lg-meta{font-size:11px;color:var(--muted);margin-top:2px}
+.lg-badge{display:inline-block;padding:2px 8px;border-radius:5px;background:var(--paper);font-size:10px;font-weight:600;color:var(--ink-2);border:1px solid var(--border)}
+.lg-num{font-family:var(--f-mono);font-size:12.5px;font-weight:600;color:var(--ink);text-align:right}
+.lg-earn{font-family:var(--f-mono);font-size:12.5px;font-weight:700;color:var(--vu-green);text-align:right}
+
+.empty-state{padding:40px 20px;text-align:center;color:var(--muted);font-size:12.5px}
+
+.foot{max-width:1240px;margin:0 auto;padding:0 32px 40px;display:flex;justify-content:space-between;align-items:center}
+.foot-note{font-size:11px;color:var(--muted);font-family:var(--f-mono)}
+
+@media(max-width:880px){
+  .hero-inner{grid-template-columns:1fr}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .two-col{grid-template-columns:1fr}
+  .delay-row{grid-template-columns:110px 1fr 60px}
+}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-left">
+    <div class="reel-mark">
+      <svg viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18" stroke="#c68a3d" stroke-width="2"/>
+        <circle cx="20" cy="20" r="5" fill="#c68a3d"/>
+        <circle cx="20" cy="9" r="2.6" fill="#c68a3d" opacity=".7"/>
+        <circle cx="29.5" cy="25.5" r="2.6" fill="#c68a3d" opacity=".7"/>
+        <circle cx="10.5" cy="25.5" r="2.6" fill="#c68a3d" opacity=".7"/>
+      </svg>
+    </div>
+    <div class="hdr-word">Publishing<span>Ledger</span></div>
+    <div class="hdr-divider"></div>
+    <div class="hdr-title" id="hdrPeriod">Q4 2025 REPORT</div>
+  </div>
+  <div class="hdr-right">
+    <a href="../index.html" style="font-family:var(--f-mono);font-size:11px;color:rgba(238,241,236,.5);text-decoration:none;margin-right:4px">&larr; All templates</a>
+    <button class="hdr-btn outline" onclick="toggleUpload()">↑ Load report</button>
+    <button class="hdr-btn primary" onclick="window.print()">Export PDF</button>
+  </div>
+</div>
+
+<div class="upload-zone" id="uploadZone">
+  <div class="upload-info">
+    <strong>Load a new publishing / mechanical royalty statement</strong>
+    Drop in the raw .txt or .csv quarterly statement from CD Baby Pro, MLC, or a PRO — columns are matched by name, so order doesn't matter.
+  </div>
+  <label class="file-pick">Choose file<input type="file" id="fileIn" accept=".txt,.csv,.tsv" onchange="handleUpload(this)"></label>
+  <span class="up-msg" id="upMsg"></span>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow" id="heroEyebrow">Publishing &amp; Mechanical Royalties</div>
+      <div class="hero-title" id="heroTitle" contenteditable="true" spellcheck="false" title="Click to type your name or artist/label name">Your Name Here</div>
+      <div class="hero-title-hint">Click your name above to personalize this statement</div>
+      <div class="hero-sub">Composition royalties — mechanical and performance — collected across every society and territory that owes you money, cleaned up from the raw statement.</div>
+      <div class="hero-flag" id="lagFlag">Longest payout delay: <b id="lagFlagVal">—</b></div>
+    </div>
+    <div class="counter-box">
+      <div class="counter-label">Total due, this statement</div>
+      <div class="counter-digits" id="counterTotal">$0.00</div>
+      <div class="counter-foot">
+        <div class="counter-stat"><div class="counter-stat-val" id="counterSongs">0</div><div class="counter-stat-lbl">Songs paid</div></div>
+        <div class="counter-stat"><div class="counter-stat-val" id="counterSocieties">0</div><div class="counter-stat-lbl">Societies</div></div>
+        <div class="counter-stat"><div class="counter-stat-val" id="counterTerritories">0</div><div class="counter-stat-lbl">Territories</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-accent" style="background:var(--brass)"></div>
+      <div class="kpi-label">Top paying society</div>
+      <div class="kpi-value" id="kpiTopSociety">—</div>
+      <div class="kpi-sub" id="kpiTopSocietySub">—</div>
+    </div>
+    <div class="kpi"><div class="kpi-accent" style="background:var(--vu-green)"></div>
+      <div class="kpi-label">Top earning song</div>
+      <div class="kpi-value" id="kpiTopSong">—</div>
+      <div class="kpi-sub" id="kpiTopSongSub">—</div>
+    </div>
+    <div class="kpi"><div class="kpi-accent" style="background:var(--vu-amber)"></div>
+      <div class="kpi-label">Mechanical vs performance</div>
+      <div class="kpi-value" id="kpiTypeSplit">—</div>
+      <div class="kpi-sub">Share of total due, by royalty type</div>
+    </div>
+    <div class="kpi"><div class="kpi-accent" style="background:var(--case)"></div>
+      <div class="kpi-label">Avg. payout delay</div>
+      <div class="kpi-value" id="kpiAvgLag">—</div>
+      <div class="kpi-sub">Months between the play and the payment</div>
+    </div>
+  </div>
+
+  <div class="section-hdr">
+    <div class="section-title">Royalty type &amp; source</div>
+    <div class="section-sub">Where the composition money is actually coming from</div>
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-head"><div class="card-title">By royalty type</div><div class="card-sub">Mechanical (reproduction) vs. performance (public play)</div></div>
+      <div class="card-body"><div class="vu-list" id="vuType"></div></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">By society</div><div class="card-sub">The collection society actually cutting the check</div></div>
+      <div class="card-body"><div class="vu-list" id="vuSociety"></div></div>
+    </div>
+  </div>
+
+  <div class="section-hdr">
+    <div class="section-title">Payout delay</div>
+    <div class="section-sub">How long after the play, the money actually showed up</div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="delay-list" id="delayList"></div>
+      <div class="delay-legend">
+        <div class="delay-legend-item"><span class="delay-legend-dot" style="background:var(--vu-green)"></span>Under 6 months</div>
+        <div class="delay-legend-item"><span class="delay-legend-dot" style="background:var(--vu-amber)"></span>6–18 months</div>
+        <div class="delay-legend-item"><span class="delay-legend-dot" style="background:var(--vu-red)"></span>Over 18 months</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-hdr">
+    <div class="section-title">Royalty ledger</div>
+    <div class="section-sub" id="ledgerCountSub"></div>
+  </div>
+  <div class="card">
+    <table class="ledger-table">
+      <thead>
+        <tr><th>Song</th><th>Type</th><th>Society / Territory</th><th style="text-align:right">Earned</th><th style="text-align:right">Due</th></tr>
+      </thead>
+      <tbody id="ledgerBody"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="foot">
+  <div class="foot-note" id="footerNote">Generated from a Publishing Royalty statement</div>
+  <div class="foot-note">Totals reflect gross composition royalties as reported by each society</div>
+</div>
+
+<script>
+const EMBEDDED = [{"artist":"Jeff Bonilla","writer":"Jeff Bonilla","song":"Be Mine Tonight","album":"Perdoname","type":"Mechanical - Streaming","society":"Mechanical Licensing Collective","territory":"US","earned":"9/1/2021","reported":"Q4 2025","due":0.01,"lag":51},{"artist":"Jeff Bonilla","writer":"Jeff Bonilla","song":"Be Mine Tonight","album":"Perdoname","type":"Mechanical - Streaming","society":"Mechanical Licensing Collective","territory":"US","earned":"12/1/2021","reported":"Q4 2025","due":0.01,"lag":48},{"artist":"Jeff Bonilla","writer":"Jeff Bonilla","song":"Be Mine Tonight","album":"Perdoname","type":"Mechanical - Streaming","society":"Mechanical Licensing Collective","territory":"US","earned":"3/1/2022","reported":"Q4 2025","due":0.01,"lag":45},{"artist":"Jeff Bonilla","writer":"Jeff Bonilla","song":"Be Mine Tonight","album":"Perdoname","type":"Mechanical - Streaming","society":"Mechanical Licensing Collective","territory":"US","earned":"10/1/2022","reported":"Q4 2025","due":0.01,"lag":38},{"artist":"Jeff Bonilla","writer":"Jeff Bonilla","song":"Be Mine Tonight","album":"Perdoname","type":"Mechanical - Streaming","society":"Mechanical Licensing Collective","territory":"US","earned":"11/1/2022","reported":"Q4 2025","due":0.01,"lag":37},{"artist":"Jeff Bonilla","writer":"Jeff Bonilla","song":"Perdoname","album":"Perdoname","type":"Performance - Streaming","society":"ICE","territory":"GB","earned":"3/1/2025","reported":"Q4 2025","due":1.88,"lag":9},{"artist":"Jeff Bonilla","writer":"Jeff Bonilla","song":"Perdoname","album":"Perdoname","type":"Mechanical - Streaming","society":"ICE","territory":"GB","earned":"3/1/2025","reported":"Q4 2025","due":3.75,"lag":9},{"artist":"Jeff Bonilla","writer":"Jeff Bonilla","song":"Perdoname","album":"Perdoname","type":"Performance - Streaming","society":"ICE","territory":"GB","earned":"4/1/2025","reported":"Q4 2025","due":1.5,"lag":8},{"artist":"Jeff Bonilla","writer":"Jeff Bonilla","song":"Perdoname","album":"Perdoname","type":"Mechanical - Streaming","society":"ICE","territory":"GB","earned":"4/1/2025","reported":"Q4 2025","due":3.02,"lag":8},{"artist":"Jeff Bonilla","writer":"Jeff Bonilla","song":"Perdoname","album":"Perdoname","type":"Performance - Streaming","society":"ICE","territory":"GB","earned":"5/1/2025","reported":"Q4 2025","due":1.53,"lag":7},{"artist":"Jeff Bonilla","writer":"Jeff Bonilla","song":"Perdoname","album":"Perdoname","type":"Mechanical - Streaming","society":"ICE","territory":"GB","earned":"5/1/2025","reported":"Q4 2025","due":3.07,"lag":7},{"artist":"Mantrananda","writer":"Jeff Bonilla","song":"Lokah Samasta","album":"Chakra Love","type":"Mechanical - Streaming","society":"Mechanical Licensing Collective","territory":"US","earned":"7/1/2025","reported":"Q4 2025","due":0.01,"lag":5},{"artist":"Mantrananda","writer":"Jeff Bonilla","song":"Lokah Samasta","album":"Chakra Love","type":"Mechanical - Streaming","society":"Mechanical Licensing Collective","territory":"US","earned":"7/1/2025","reported":"Q4 2025","due":0.01,"lag":5},{"artist":"Jeff Bonilla","writer":"Jeff Bonilla","song":"Be Mine Tonight","album":"Perdoname","type":"Mechanical - Streaming","society":"Mechanical Licensing Collective","territory":"US","earned":"8/1/2025","reported":"Q4 2025","due":0.01,"lag":4},{"artist":"Mantrananda","writer":"Jeff Bonilla","song":"Lokah Samasta","album":"Chakra Love","type":"Mechanical - Streaming","society":"Mechanical Licensing Collective","territory":"US","earned":"8/1/2025","reported":"Q4 2025","due":0.01,"lag":4},{"artist":"Mantrananda","writer":"Jeff Bonilla","song":"Lokah Samasta","album":"Chakra Love","type":"Mechanical - Streaming","society":"Mechanical Licensing Collective","territory":"US","earned":"9/1/2025","reported":"Q4 2025","due":0.01,"lag":3},{"artist":"Mantrananda","writer":"Jeff Bonilla","song":"Lokah Samasta","album":"Chakra Love","type":"Mechanical - Streaming","society":"CMRRA","territory":"CA","earned":"9/1/2025","reported":"Q4 2025","due":0.01,"lag":3},{"artist":"Jeff Bonilla","writer":"Jeff Bonilla","song":"Be Mine Tonight","album":"Perdoname","type":"Mechanical - Streaming","society":"APRA PAL","territory":"SG","earned":"10/1/2025","reported":"Q4 2025","due":0.01,"lag":2}];
+
+let DATA = [];
+let TITLE_EDITED = false;
+
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function fmtMoney(n){ return '$' + n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function vuSegments(pct){
+  const total = 20;
+  const lit = Math.max(1, Math.round(pct/100*total));
+  let html = '';
+  for(let i=0;i<total;i++){
+    let cls = '';
+    if(i < lit){
+      if(i < total*0.6) cls = 'lit-g';
+      else if(i < total*0.85) cls = 'lit-a';
+      else cls = 'lit-r';
+    }
+    html += `<div class="vu-seg ${cls}"></div>`;
+  }
+  return html;
+}
+function lagClass(lag){ return lag < 6 ? 'short' : lag < 18 ? 'mid' : 'long'; }
+function lagLabel(lag){ return lag + 'mo'; }
+
+function render(){
+  if(!DATA.length){
+    document.getElementById('ledgerBody').innerHTML = '<tr><td colspan="5"><div class="empty-state">No publishing royalty rows loaded. Load a statement to get started.</div></td></tr>';
+    return;
+  }
+
+  const totalDue = DATA.reduce((s,r)=>s+r.due,0);
+  const songs = new Set(DATA.map(r=>r.artist+'|||'+r.song));
+  const societies = new Set(DATA.map(r=>r.society));
+  const territories = new Set(DATA.map(r=>r.territory));
+
+  document.getElementById('counterTotal').textContent = fmtMoney(totalDue);
+  document.getElementById('counterSongs').textContent = songs.size;
+  document.getElementById('counterSocieties').textContent = societies.size;
+  document.getElementById('counterTerritories').textContent = territories.size;
+
+  const maxLag = Math.max(...DATA.map(r=>r.lag));
+  document.getElementById('lagFlagVal').textContent = maxLag + ' months';
+
+  // ── Auto-populate the editable title, unless the person already typed their own ──
+  if(!TITLE_EDITED){
+    const artists = [...new Set(DATA.map(r=>r.artist))];
+    const titleEl = document.getElementById('heroTitle');
+    if(artists.length === 1){
+      titleEl.textContent = artists[0];
+    } else if(artists.length > 1 && titleEl.textContent === 'Your Name Here'){
+      titleEl.textContent = 'My Catalog';
+    }
+  }
+
+  // ── By type ──
+  const byType = {};
+  DATA.forEach(r => { byType[r.type] = (byType[r.type]||0) + r.due; });
+  const typeRows = Object.entries(byType).sort((a,b)=>b[1]-a[1]);
+  const maxType = typeRows.length ? typeRows[0][1] : 1;
+  document.getElementById('vuType').innerHTML = typeRows.map(([name,val]) => {
+    const pct = maxType ? (val/maxType*100) : 0;
+    return `<div class="vu-row">
+      <div class="vu-row-top"><span class="vu-name">${esc(name)}</span><span class="vu-val">${fmtMoney(val)}</span></div>
+      <div class="vu-track">${vuSegments(pct)}</div>
+    </div>`;
+  }).join('');
+  if(typeRows.length){
+    const mech = byType['Mechanical - Streaming'] || 0;
+    const perf = byType['Performance - Streaming'] || 0;
+    const mechPct = totalDue ? Math.round(mech/totalDue*100) : 0;
+    document.getElementById('kpiTypeSplit').textContent = mechPct + '% / ' + (100-mechPct) + '%';
+  }
+
+  // ── By society ──
+  const bySociety = {};
+  DATA.forEach(r => { bySociety[r.society] = (bySociety[r.society]||0) + r.due; });
+  const socRows = Object.entries(bySociety).sort((a,b)=>b[1]-a[1]);
+  const maxSoc = socRows.length ? socRows[0][1] : 1;
+  document.getElementById('vuSociety').innerHTML = socRows.map(([name,val]) => {
+    const pct = maxSoc ? (val/maxSoc*100) : 0;
+    return `<div class="vu-row">
+      <div class="vu-row-top"><span class="vu-name">${esc(name)}</span><span class="vu-val">${fmtMoney(val)}</span></div>
+      <div class="vu-track">${vuSegments(pct)}</div>
+    </div>`;
+  }).join('');
+  if(socRows.length){
+    const share = totalDue ? (socRows[0][1]/totalDue*100) : 0;
+    document.getElementById('kpiTopSociety').textContent = socRows[0][0];
+    document.getElementById('kpiTopSocietySub').textContent = fmtMoney(socRows[0][1]) + ' · ' + share.toFixed(0) + '% of total';
+  }
+
+  // ── Top song ──
+  const bySong = {};
+  DATA.forEach(r => {
+    const k = r.artist+'|||'+r.song;
+    bySong[k] = (bySong[k]||0) + r.due;
+  });
+  const songRows = Object.entries(bySong).sort((a,b)=>b[1]-a[1]);
+  if(songRows.length){
+    const [key,val] = songRows[0];
+    const [artist,song] = key.split('|||');
+    document.getElementById('kpiTopSong').textContent = song;
+    document.getElementById('kpiTopSongSub').textContent = artist + ' · ' + fmtMoney(val);
+  }
+
+  const avgLag = DATA.reduce((s,r)=>s+r.lag,0) / DATA.length;
+  document.getElementById('kpiAvgLag').textContent = avgLag.toFixed(1) + ' mo';
+
+  // ── Payout delay list (top 12 longest delays) ──
+  const delayRows = [...DATA].sort((a,b)=>b.lag-a.lag).slice(0,12);
+  const maxDelay = delayRows.length ? delayRows[0].lag : 1;
+  document.getElementById('delayList').innerHTML = delayRows.map(r => {
+    const pct = maxDelay ? Math.max(6, r.lag/maxDelay*100) : 6;
+    return `<div class="delay-row">
+      <div class="delay-name">${esc(r.song)}<span>${esc(r.territory)} · ${esc(r.society)}</span></div>
+      <div class="delay-axis"><div class="delay-bar ${lagClass(r.lag)}" style="width:${pct}%"><span class="delay-bar-lbl">${lagLabel(r.lag)}</span></div></div>
+      <div class="delay-val">${fmtMoney(r.due)}</div>
+    </div>`;
+  }).join('');
+
+  // ── Ledger table ──
+  const ledgerRows = [...DATA].sort((a,b)=>b.due-a.due);
+  document.getElementById('ledgerBody').innerHTML = ledgerRows.length ? ledgerRows.map(r => `
+    <tr>
+      <td>
+        <div class="lg-track">${esc(r.song)}</div>
+        <div class="lg-meta">${esc(r.artist)} · ${esc(r.album)}</div>
+      </td>
+      <td><span class="lg-badge">${esc(r.type.replace(' - Streaming',''))}</span></td>
+      <td><span class="lg-badge">${esc(r.society)}</span> <span class="lg-badge">${esc(r.territory)}</span></td>
+      <td class="lg-num">${esc(r.earned)}</td>
+      <td class="lg-earn">${fmtMoney(r.due)}</td>
+    </tr>
+  `).join('') : '<tr><td colspan="5"><div class="empty-state">No rows in this statement.</div></td></tr>';
+
+  document.getElementById('ledgerCountSub').textContent = ledgerRows.length + ' line items, ranked by amount due';
+}
+
+// ── UPLOAD HANDLER ───────────────────────────────────────────────────
+function toggleUpload(){ document.getElementById('uploadZone').classList.toggle('open'); }
+
+function parseDelimited(text){
+  const firstLine = text.split(/\r\n|\n/)[0] || '';
+  const delim = firstLine.includes('\t') ? '\t' : ',';
+  const lines = text.split(/\r\n|\n/).filter(l => l.trim().length);
+  const header = lines[0].split(delim).map(h => h.replace(/^"|"$/g,'').trim());
+  const rows = lines.slice(1).map(line => {
+    const cells = [];
+    let cur = '', inQ = false;
+    for(let i=0;i<line.length;i++){
+      const c = line[i];
+      if(c === '"'){ inQ = !inQ; continue; }
+      if(c === delim && !inQ){ cells.push(cur); cur=''; continue; }
+      cur += c;
+    }
+    cells.push(cur);
+    const obj = {};
+    header.forEach((h,i) => obj[h] = cells[i] !== undefined ? cells[i].trim() : '');
+    return obj;
+  });
+  return rows;
+}
+
+function findCol(header, candidates){
+  const lower = header.map(h=>h.toLowerCase());
+  for(const c of candidates){
+    const idx = lower.indexOf(c.toLowerCase());
+    if(idx >= 0) return header[idx];
+  }
+  return null;
+}
+
+function parseLag(earnedStr, reportedStr){
+  const em = String(earnedStr).match(/(\d{1,2})\/\d{1,2}\/(\d{4})/);
+  if(!em) return 0;
+  const earnedMonth = parseInt(em[1],10), earnedYear = parseInt(em[2],10);
+  const qm = String(reportedStr).match(/Q(\d)\s*(\d{4})/i);
+  let reportedMonth = 12, reportedYear = earnedYear;
+  if(qm){ reportedMonth = parseInt(qm[1],10)*3; reportedYear = parseInt(qm[2],10); }
+  return (reportedYear-earnedYear)*12 + (reportedMonth-earnedMonth);
+}
+
+function handleUpload(input){
+  const file = input.files[0]; if(!file) return;
+  const msg = document.getElementById('upMsg');
+  msg.className='up-msg'; msg.textContent='Parsing…'; msg.style.display='block';
+
+  const fr = new FileReader();
+  fr.onload = e => {
+    try {
+      const text = e.target.result;
+      const rows = parseDelimited(text);
+      if(!rows.length || Object.keys(rows[0]).length < 3){
+        msg.className='up-msg err';
+        msg.textContent='Could not read this file. Make sure it is a raw publishing/mechanical royalty statement.';
+        return;
+      }
+      const header = Object.keys(rows[0]);
+      const colArtist = findCol(header, ['Artist Name','Artist']);
+      const colWriter = findCol(header, ['Writer Name','Writer']);
+      const colSong   = findCol(header, ['Song','Track Name','Track']);
+      const colAlbum  = findCol(header, ['Album Name','Album']);
+      const colType   = findCol(header, ['Royalty Type','Type']);
+      const colSociety= findCol(header, ['Society','Source']);
+      const colTerr   = findCol(header, ['Territory','Country']);
+      const colReported=findCol(header, ['Period Reported','Reported Period']);
+      const colEarned = findCol(header, ['Period Earned Date','Period Earned','Earned Date']);
+      const colDue    = findCol(header, ['Total Due','Amount','Due']);
+
+      if(!colSong || !colDue){
+        msg.className='up-msg err';
+        msg.textContent='Could not find Song or Total Due columns in this file.';
+        return;
+      }
+
+      const parsed = rows.map(r => {
+        const due = parseFloat(String(r[colDue]||'0').replace(/[$,]/g,'')) || 0;
+        const earned = colEarned ? (r[colEarned]||'') : '';
+        const reported = colReported ? (r[colReported]||'') : '';
+        return {
+          artist: colArtist ? (r[colArtist]||'Unknown Artist') : 'Unknown Artist',
+          writer: colWriter ? (r[colWriter]||'') : '',
+          song: r[colSong] || 'Unknown Song',
+          album: colAlbum ? (r[colAlbum]||'') : '',
+          type: colType ? (r[colType]||'Royalty') : 'Royalty',
+          society: colSociety ? (r[colSociety]||'Unknown Society') : 'Unknown Society',
+          territory: colTerr ? (r[colTerr]||'—') : '—',
+          earned: earned,
+          reported: reported,
+          due: due,
+          lag: (earned && reported) ? Math.max(0,parseLag(earned,reported)) : 0,
+        };
+      }).filter(r => r.due !== 0);
+
+      if(!parsed.length){
+        msg.className='up-msg err';
+        msg.textContent='No valid royalty rows found in this file.';
+        return;
+      }
+
+      DATA = parsed;
+      document.getElementById('heroEyebrow').textContent = file.name.replace(/\.[^.]+$/,'').replace(/[_-]/g,' ');
+      render();
+
+      msg.className='up-msg ok';
+      msg.textContent = '✓ Loaded ' + parsed.length + ' rows from ' + file.name;
+      setTimeout(()=>{ document.getElementById('uploadZone').classList.remove('open'); }, 1800);
+
+    } catch(err){
+      msg.className='up-msg err';
+      msg.textContent = 'Error: ' + err.message;
+    }
+  };
+  fr.readAsText(file);
+}
+
+// ── INIT ─────────────────────────────────────────────────────────────
+DATA = EMBEDDED.slice();
+document.getElementById('footerNote').textContent = 'Generated from a Publishing Royalty statement · Q4 2025';
+document.getElementById('heroTitle').addEventListener('input', () => { TITLE_EDITED = true; });
+render();
+</script>
+</body>
+</html>
