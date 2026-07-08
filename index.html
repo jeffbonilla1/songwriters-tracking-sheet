@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Songwriters Tracking Sheets</title>
+<meta name="description" content="Turn your ugly CD Baby, DistroKid, or BMI royalty export into a statement you'd actually want to look at. Download-and-keep templates, no subscription.">
+<meta property="og:title" content="Songwriters Tracking Sheets">
+<meta property="og:description" content="Your royalty export looks like garbage. It doesn't have to. Templates that turn raw exports into readable statements — yours to keep, no subscription.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 40 40%22><circle cx=%2220%22 cy=%2220%22 r=%2218%22 fill=%22%230f211e%22/><circle cx=%2220%22 cy=%2220%22 r=%2214%22 stroke=%22%23c68a3d%22 stroke-width=%222%22 fill=%22none%22/><circle cx=%2220%22 cy=%2220%22 r=%224%22 fill=%22%23c68a3d%22/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --case:#182e2b; --case-2:#213f3a; --case-3:#0f211e;
+  --brass:#c68a3d; --brass-light:#e8c07f;
+  --paper:#eef1ec; --ink:#182420; --ink-2:#42524b; --muted:#70817a;
+  --surface:#ffffff; --border:#dbe2dc;
+  --vu-green:#4d8a58; --vu-amber:#d9a13b; --vu-red:#b8453a;
+  --f-disp:'Big Shoulders Display',sans-serif;
+  --f-body:'Inter',system-ui,sans-serif;
+  --f-mono:'IBM Plex Mono',monospace;
+  --shadow:0 2px 14px rgba(15,33,30,.08);
+  --shadow-lg:0 14px 40px rgba(15,33,30,.16);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-body);background:var(--paper);color:var(--ink);min-height:100vh}
+a{color:inherit}
+.wrap{max-width:1160px;margin:0 auto;padding:0 32px}
+
+/* HEADER */
+.hdr{background:var(--case-3);padding:0 32px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(198,138,61,.25)}
+.hdr-left{display:flex;align-items:center;gap:14px}
+.reel-mark{width:28px;height:28px;flex-shrink:0}
+.reel-mark svg{width:100%;height:100%}
+.hdr-word{font-family:var(--f-disp);font-weight:700;font-size:18px;letter-spacing:.5px;color:var(--paper);text-transform:uppercase}
+.hdr-word span{color:var(--brass)}
+.hdr-nav{display:flex;gap:26px;font-size:12.5px;font-weight:600;color:rgba(238,241,236,.7)}
+.hdr-nav a:hover{color:var(--brass-light)}
+.hdr-btn{padding:8px 16px;border-radius:7px;border:none;background:var(--brass);color:var(--case-3);font-size:12px;font-weight:700;cursor:pointer}
+.hdr-btn:hover{background:var(--brass-light)}
+
+/* HERO */
+.hero{background:linear-gradient(180deg, rgba(15,33,30,.2) 0%, transparent 40%),radial-gradient(circle at 85% -10%, rgba(198,138,61,.16) 0%, transparent 55%),linear-gradient(135deg, var(--case) 0%, var(--case-3) 100%);padding:72px 32px 64px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;opacity:.5;background-image:repeating-linear-gradient(90deg, rgba(238,241,236,.025) 0 1px, transparent 1px 34px)}
+.hero-inner{position:relative;z-index:1;max-width:1160px;margin:0 auto;text-align:center}
+.hero-eyebrow{font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--brass);margin-bottom:16px;display:inline-flex;align-items:center;gap:8px}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:20px;height:1px;background:var(--brass)}
+.hero-title{font-family:var(--f-disp);font-size:52px;font-weight:800;color:var(--paper);line-height:1.05;margin-bottom:16px;text-transform:uppercase;letter-spacing:.3px;max-width:820px;margin-left:auto;margin-right:auto}
+.hero-title em{font-style:normal;color:var(--brass-light)}
+.hero-sub{font-size:15px;color:rgba(238,241,236,.65);line-height:1.65;max-width:560px;margin:0 auto 30px}
+.hero-ctas{display:flex;gap:12px;justify-content:center}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;border:none;text-decoration:none}
+.btn-primary{background:var(--brass);color:var(--case-3)}
+.btn-primary:hover{background:var(--brass-light)}
+.btn-ghost{background:rgba(238,241,236,.08);color:var(--paper);border:1px solid rgba(238,241,236,.2)}
+.btn-ghost:hover{background:rgba(238,241,236,.15)}
+
+/* BEFORE/AFTER — signature element */
+.splice{max-width:1160px;margin:-30px auto 0;padding:0 32px;position:relative;z-index:2}
+.splice-card{background:var(--surface);border-radius:18px;box-shadow:var(--shadow-lg);overflow:hidden;display:grid;grid-template-columns:1fr auto 1fr}
+.splice-side{padding:26px 28px}
+.splice-side.raw{background:#0f211e}
+.splice-lbl{font-family:var(--f-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;font-weight:600}
+.splice-side.raw .splice-lbl{color:rgba(238,241,236,.4)}
+.splice-side.pretty .splice-lbl{color:var(--muted)}
+.raw-text{font-family:var(--f-mono);font-size:10.5px;line-height:1.9;color:#5b736c;white-space:nowrap;overflow:hidden}
+.raw-text b{color:rgba(238,241,236,.55)}
+.splice-mid{width:1px;background:repeating-linear-gradient(180deg, var(--border) 0 6px, transparent 6px 12px)}
+.mini-hero{background:linear-gradient(135deg,var(--case) 0%, var(--case-3) 100%);border-radius:10px;padding:16px 18px;margin-bottom:12px}
+.mini-lbl{font-family:var(--f-mono);font-size:8.5px;letter-spacing:1px;color:rgba(238,241,236,.45);text-transform:uppercase}
+.mini-val{font-family:var(--f-mono);font-size:22px;font-weight:600;color:var(--brass-light);margin-top:4px}
+.mini-bars{display:flex;flex-direction:column;gap:8px}
+.mini-bar-row{display:flex;align-items:center;gap:8px}
+.mini-bar-name{font-size:10px;font-weight:600;color:var(--ink-2);width:64px;flex-shrink:0}
+.mini-bar-track{flex:1;display:flex;gap:1.5px;height:9px}
+.mini-seg{flex:1;border-radius:1px;background:#e6ebe6}
+.mini-seg.on{background:var(--vu-green)}
+
+/* SECTIONS */
+.section{padding:64px 32px}
+.section-eyebrow{font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--brass);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.section-eyebrow::before{content:'';width:20px;height:1px;background:var(--brass)}
+.section-title{font-family:var(--f-disp);font-size:30px;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:.3px;margin-bottom:10px}
+.section-sub{font-size:13.5px;color:var(--muted);max-width:520px;line-height:1.6;margin-bottom:36px}
+
+/* HOW IT WORKS */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1160px;margin:0 auto}
+.step{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:26px 24px;position:relative}
+.step-num{font-family:var(--f-disp);font-size:38px;font-weight:800;color:var(--border);line-height:1;margin-bottom:14px}
+.step-title{font-size:14.5px;font-weight:700;color:var(--ink);margin-bottom:8px}
+.step-body{font-size:12.5px;color:var(--muted);line-height:1.6}
+
+/* GALLERY */
+.gallery-wrap{background:var(--surface)}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1160px;margin:0 auto}
+.tmpl-card{border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:box-shadow .2s, transform .2s}
+.tmpl-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+.tmpl-swatch{height:120px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.tmpl-swatch::before{content:'';position:absolute;inset:0;opacity:.5;background-image:repeating-linear-gradient(90deg, rgba(238,241,236,.03) 0 1px, transparent 1px 24px)}
+.tmpl-swatch.sales{background:linear-gradient(135deg,#182e2b,#0f211e)}
+.tmpl-swatch.pub{background:linear-gradient(135deg,#2a3d1f,#16210f)}
+.tmpl-swatch.lic{background:linear-gradient(135deg,#3a2418,#1f1109)}
+.tmpl-swatch.split{background:linear-gradient(135deg,#1f2f42,#121c29)}
+.tmpl-swatch.acct{background:linear-gradient(135deg,#182e2b,#0f211e)}
+.tmpl-swatch.free{background:linear-gradient(135deg,#3d3016,#211a0b)}
+.tmpl-swatch-lbl{font-family:var(--f-mono);font-size:9.5px;color:rgba(238,241,236,.5);letter-spacing:1px;text-transform:uppercase;position:relative;z-index:1}
+.tmpl-swatch-val{font-family:var(--f-mono);font-size:26px;font-weight:600;color:var(--brass-light);position:relative;z-index:1}
+.tmpl-body{padding:20px 22px 22px}
+.tmpl-title{font-size:14.5px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.tmpl-desc{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:16px;min-height:58px}
+.tmpl-foot{display:flex;justify-content:space-between;align-items:center}
+.tmpl-price{font-family:var(--f-mono);font-size:15px;font-weight:700;color:var(--ink)}
+.tmpl-buy{padding:7px 14px;border-radius:7px;background:var(--paper);border:1px solid var(--border);font-size:11.5px;font-weight:700;cursor:pointer;color:var(--ink-2);text-decoration:none;display:inline-block}
+.tmpl-buy:hover{background:var(--case-3);color:var(--brass-light);border-color:var(--case-3)}
+.tmpl-badge{display:inline-block;font-family:var(--f-mono);font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--brass);background:rgba(198,138,61,.12);padding:3px 8px;border-radius:5px;margin-bottom:8px}
+.tmpl-card.soon{opacity:.55}
+.tmpl-card.soon:hover{transform:none;box-shadow:none}
+
+/* PRICING */
+.pricing{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:820px;margin:0 auto}
+.price-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px 26px}
+.price-card.hi{border-color:var(--brass);box-shadow:0 0 0 1px var(--brass)}
+.price-lbl{font-family:var(--f-mono);font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.price-amt{font-family:var(--f-disp);font-size:34px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.price-amt span{font-size:14px;color:var(--muted);font-family:var(--f-body);font-weight:500}
+.price-desc{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:18px}
+.price-list{list-style:none;display:flex;flex-direction:column;gap:9px}
+.price-list li{font-size:12px;color:var(--ink-2);display:flex;gap:8px;align-items:flex-start}
+.price-list li::before{content:'—';color:var(--brass);flex-shrink:0}
+
+/* BLOG */
+.blog-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;max-width:1160px;margin:0 auto}
+.blog-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 22px}
+.blog-src{font-family:var(--f-mono);font-size:9.5px;color:var(--brass);letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px}
+.blog-title{font-size:13px;font-weight:700;color:var(--ink);line-height:1.4;margin-bottom:8px}
+.blog-snip{font-size:11.5px;color:var(--muted);line-height:1.6}
+
+/* FOOTER */
+.foot{background:var(--case-3);padding:32px;text-align:center}
+.foot-note{font-size:11px;color:rgba(238,241,236,.4);font-family:var(--f-mono)}
+
+@media(max-width:900px){
+  .hero-title{font-size:36px}
+  .splice-card{grid-template-columns:1fr}
+  .splice-mid{display:none}
+  .steps,.gallery,.blog-grid{grid-template-columns:1fr}
+  .pricing{grid-template-columns:1fr}
+  .hdr-nav{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-left">
+    <div class="reel-mark">
+      <svg viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18" stroke="#c68a3d" stroke-width="2"/>
+        <circle cx="20" cy="20" r="5" fill="#c68a3d"/>
+        <circle cx="20" cy="9" r="2.6" fill="#c68a3d" opacity=".7"/>
+        <circle cx="29.5" cy="25.5" r="2.6" fill="#c68a3d" opacity=".7"/>
+        <circle cx="10.5" cy="25.5" r="2.6" fill="#c68a3d" opacity=".7"/>
+      </svg>
+    </div>
+    <div class="hdr-word">Songwriters<span>Sheets</span></div>
+  </div>
+  <div class="hdr-nav">
+    <a href="#gallery">Templates</a>
+    <a href="#how">How it works</a>
+    <a href="#blog">From the ledger</a>
+  </div>
+  <a class="hdr-btn" href="#gallery" style="text-decoration:none">Browse templates</a>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Songwriters Tracking Sheets</div>
+    <div class="hero-title">Your royalty export looks like <em>garbage.</em> It doesn't have to.</div>
+    <div class="hero-sub">Drop in the raw file your distributor makes you download. Get back a statement you'd actually want to look at. No account, no upload to a server — it runs right in your browser, and it's yours forever.</div>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="#gallery">Browse templates</a>
+      <a class="btn btn-ghost" href="#how">See how it works</a>
+    </div>
+  </div>
+</div>
+
+<div class="splice">
+  <div class="splice-card">
+    <div class="splice-side raw">
+      <div class="splice-lbl">What you download</div>
+      <div class="raw-text">
+        Report Date^ISales Date^IQuantity^IPrice^ISubtotal<br>
+        5/6/2026^I1/31/2026^I361^I0.0000000<b>89054</b><br>
+        5/6/2026^I1/31/2026^I2^I0.00000078639^I0.0000011<br>
+        5/6/2026^I1/31/2026^I5^I0.000018429027^I0.0000<br>
+        usl4q2421737^I"198595632512"^Is6alb0366<br>
+        Swamp Fever Blues^IBroken Heart Rebels^IRiv<br>
+        Facebook^IStream^M$<br>
+        5/6/2026^I1/31/2026^I2^I0.00000078639^I<br>
+      </div>
+    </div>
+    <div class="splice-mid"></div>
+    <div class="splice-side pretty">
+      <div class="splice-lbl">What you get</div>
+      <div class="mini-hero">
+        <div class="mini-lbl">Total earned</div>
+        <div class="mini-val">$246.42</div>
+      </div>
+      <div class="mini-bars">
+        <div class="mini-bar-row"><span class="mini-bar-name">Mantrananda</span><div class="mini-bar-track"><div class="mini-seg on"></div><div class="mini-seg on"></div><div class="mini-seg on"></div><div class="mini-seg on"></div><div class="mini-seg on"></div><div class="mini-seg on"></div><div class="mini-seg on"></div><div class="mini-seg"></div><div class="mini-seg"></div><div class="mini-seg"></div></div></div>
+        <div class="mini-bar-row"><span class="mini-bar-name">Spotify</span><div class="mini-bar-track"><div class="mini-seg on"></div><div class="mini-seg on"></div><div class="mini-seg on"></div><div class="mini-seg on"></div><div class="mini-seg"></div><div class="mini-seg"></div><div class="mini-seg"></div><div class="mini-seg"></div><div class="mini-seg"></div><div class="mini-seg"></div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="how">
+  <div class="wrap" style="text-align:center;margin-bottom:8px">
+    <div class="section-eyebrow" style="justify-content:center">How it works</div>
+    <div class="section-title">Three steps, no account needed</div>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Download your raw export</div>
+      <div class="step-body">From CD Baby, DistroKid, your PRO, wherever it comes from. Don't clean it up — that's the whole point.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Drop it into your template</div>
+      <div class="step-body">Every template reads columns by name, not position, so it doesn't matter which order your file came in.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Keep the pretty version</div>
+      <div class="step-body">It's a single file that lives on your computer. Reopen it anytime, reload a new month, export to PDF whenever you want.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section gallery-wrap" id="gallery">
+  <div class="wrap" style="text-align:center;margin-bottom:8px">
+    <div class="section-eyebrow" style="justify-content:center">The templates</div>
+    <div class="section-title">Pick the one that matches your export</div>
+    <div class="section-sub" style="margin-left:auto;margin-right:auto;text-align:center">Five built, more on the way. Each one is a self-contained file — no subscription required to keep using it.</div>
+  </div>
+  <div class="gallery">
+    <div class="tmpl-card">
+      <div class="tmpl-swatch sales">
+        <div class="tmpl-swatch-lbl">Sales Ledger</div>
+        <div class="tmpl-swatch-val">$246.42</div>
+      </div>
+      <div class="tmpl-body">
+        <div class="tmpl-badge">Most popular</div>
+        <div class="tmpl-title">Digital Distribution Sales</div>
+        <div class="tmpl-desc">Every platform, every artist name, one readable statement. Streams vs. downloads, top countries, month-over-month trend.</div>
+        <div class="tmpl-foot"><span class="tmpl-price">$1.99</span><a class="tmpl-buy" href="templates/sales-ledger.html">Get template</a></div>
+      </div>
+    </div>
+    <div class="tmpl-card">
+      <div class="tmpl-swatch pub">
+        <div class="tmpl-swatch-lbl">Publishing Ledger</div>
+        <div class="tmpl-swatch-val">51mo</div>
+      </div>
+      <div class="tmpl-body">
+        <div class="tmpl-title">Mechanical &amp; Publishing Royalties</div>
+        <div class="tmpl-desc">See exactly how long each society took to pay you, split by mechanical vs. performance, by territory and source.</div>
+        <div class="tmpl-foot"><span class="tmpl-price">$1.99</span><a class="tmpl-buy" href="templates/publishing-ledger.html">Get template</a></div>
+      </div>
+    </div>
+    <div class="tmpl-card">
+      <div class="tmpl-swatch lic">
+        <div class="tmpl-swatch-lbl">Licensing Ledger</div>
+        <div class="tmpl-swatch-val">$2.32</div>
+      </div>
+      <div class="tmpl-body">
+        <div class="tmpl-title">Content ID &amp; Sync Royalties</div>
+        <div class="tmpl-desc">The withheld cover-song and content-ID money most artists never look at, broken down by platform and track.</div>
+        <div class="tmpl-foot"><span class="tmpl-price">$1.99</span><a class="tmpl-buy" href="templates/licensing-ledger.html">Get template</a></div>
+      </div>
+    </div>
+    <div class="tmpl-card">
+      <div class="tmpl-swatch split">
+        <div class="tmpl-swatch-lbl">Split Ledger</div>
+        <div class="tmpl-swatch-val">BMI</div>
+      </div>
+      <div class="tmpl-body">
+        <div class="tmpl-badge">New</div>
+        <div class="tmpl-title">Writer vs. Publisher Comparison</div>
+        <div class="tmpl-desc">Load your songwriter and publisher accrual statements side by side. Flags any song missing from either one — money worth chasing.</div>
+        <div class="tmpl-foot"><span class="tmpl-price">$2.99</span><a class="tmpl-buy" href="templates/split-ledger.html">Get template</a></div>
+      </div>
+    </div>
+    <div class="tmpl-card">
+      <div class="tmpl-swatch acct">
+        <div class="tmpl-swatch-lbl">Account Ledger</div>
+        <div class="tmpl-swatch-val">Lifetime</div>
+      </div>
+      <div class="tmpl-body">
+        <div class="tmpl-badge">New</div>
+        <div class="tmpl-title">Lifetime Account Transactions</div>
+        <div class="tmpl-desc">Every sale, payout, and fee since day one. Flags canceled or bounced payments so you know if there's money still waiting on you.</div>
+        <div class="tmpl-foot"><span class="tmpl-price">$2.99</span><a class="tmpl-buy" href="templates/account-ledger.html">Get template</a></div>
+      </div>
+    </div>
+    <div class="tmpl-card">
+      <div class="tmpl-swatch free">
+        <div class="tmpl-swatch-lbl">Try it free</div>
+        <div class="tmpl-swatch-val">Sample</div>
+      </div>
+      <div class="tmpl-body">
+        <div class="tmpl-title">See the Sales Ledger in action</div>
+        <div class="tmpl-desc">A fully interactive sample with placeholder data — filter, sort, and explore before you buy. Upload is disabled, everything else works.</div>
+        <div class="tmpl-foot"><span class="tmpl-price">Free</span><a class="tmpl-buy" href="templates/sample-sales-ledger.html">Try the sample</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="section" id="pricing">
+  <div class="wrap" style="text-align:center;margin-bottom:8px">
+    <div class="section-eyebrow" style="justify-content:center">Pricing</div>
+    <div class="section-title">Buy it once, keep it forever</div>
+    <div class="section-sub" style="margin-left:auto;margin-right:auto;text-align:center">No accounts, no hosting, no subscription. Every template is a single file that runs in your browser.</div>
+  </div>
+  <div class="pricing" style="grid-template-columns:1fr;max-width:480px">
+    <div class="price-card hi">
+      <div class="price-lbl">Per template</div>
+      <div class="price-amt">$1–3<span> / template</span></div>
+      <div class="price-desc">Download the file, open it whenever you want, reload it with a new export every month. It's yours — nothing expires, nothing renews.</div>
+      <ul class="price-list">
+        <li>Runs entirely in your browser, data never leaves your computer</li>
+        <li>Reusable indefinitely with new exports</li>
+        <li>Same model as the TWP tools</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class="section gallery-wrap" id="blog">
+  <div class="wrap" style="text-align:center;margin-bottom:8px">
+    <div class="section-eyebrow" style="justify-content:center">From the ledger</div>
+    <div class="section-title">Stories worth a musician's time</div>
+    <div class="section-sub" style="margin-left:auto;margin-right:auto;text-align:center">A running feed of royalty, distribution, and rights-collection news pulled from around the web — placeholders below, real feed to come.</div>
+  </div>
+  <div class="blog-grid">
+    <div class="blog-card">
+      <div class="blog-src">Industry news</div>
+      <div class="blog-title">What actually changed when CD Baby shut down Pro Publishing</div>
+      <div class="blog-snip">A breakdown of what artists lost, and what they now have to do themselves.</div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-src">How-to</div>
+      <div class="blog-title">Mechanical vs. performance royalties, explained without the jargon</div>
+      <div class="blog-snip">Why the same stream can generate two separate payments from two separate places.</div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-src">Tools</div>
+      <div class="blog-title">Suno's developer API is coming — here's what it could unlock</div>
+      <div class="blog-snip">A curated early-access program was just announced. What it means for indie tool builders.</div>
+    </div>
+  </div>
+</div>
+
+<div class="foot">
+  <div class="foot-note">Songwriters Tracking Sheets · Sketch, not live</div>
+</div>
+
+</body>
+</html>
