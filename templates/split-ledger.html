@@ -39,6 +39,15 @@ body{font-family:var(--f-body);background:var(--paper);color:var(--ink);min-heig
 .hdr-btn.outline:hover{background:rgba(238,241,236,.14)}
 .hdr-btn.primary{background:var(--brass);color:var(--case-3)}
 .hdr-btn.primary:hover{background:var(--brass-light)}
+@keyframes pulse-glow{0%,100%{box-shadow:0 0 0 0 rgba(198,138,61,.55)}50%{box-shadow:0 0 0 7px rgba(198,138,61,0)}}
+.hdr-btn.outline.pulse{animation:pulse-glow 1.7s ease-in-out infinite;border-color:rgba(198,138,61,.6)}
+.start-banner{max-width:1240px;margin:20px auto 0;padding:0 32px}
+.start-banner-card{background:linear-gradient(90deg, rgba(198,138,61,.08), rgba(198,138,61,.03));border:1px dashed rgba(198,138,61,.4);border-radius:12px;padding:16px 20px;display:none}
+.start-banner-card.show{display:block}
+.start-banner-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.start-banner-title::before{content:'\2191';color:var(--brass);font-weight:700}
+.start-banner-steps{font-size:12px;color:var(--ink-2);line-height:1.9}
+.start-banner-steps b{color:var(--ink)}
 
 .upload-zone{background:var(--case-2);border-bottom:1px solid rgba(198,138,61,.25);padding:14px 32px;display:none;align-items:flex-start;gap:22px;flex-wrap:wrap}
 .upload-zone.open{display:flex}
@@ -157,7 +166,7 @@ input[type=file]{display:none}
   </div>
   <div class="hdr-right">
     <a href="../index.html" style="font-family:var(--f-mono);font-size:11px;color:rgba(238,241,236,.5);text-decoration:none;margin-right:4px">&larr; All templates</a>
-    <button class="hdr-btn outline" onclick="toggleUpload()">↑ Load statements</button>
+    <button class="hdr-btn outline pulse" id="loadBtn" onclick="toggleUpload()">↑ Load statements</button>
     <button class="hdr-btn primary" onclick="window.print()">Export PDF</button>
   </div>
 </div>
@@ -187,6 +196,17 @@ input[type=file]{display:none}
       <div class="scale-mid"><div class="scale-vs">VS</div><div class="scale-gap" id="gapVal">—</div></div>
       <div class="scale-side"><div class="scale-lbl">Publisher side</div><div class="scale-val pub" id="pubTotal">$0.00</div></div>
       <div class="scale-bar-row"><div class="scale-bar writer" id="scaleBarWriter" style="width:50%"></div><div class="scale-bar pub" id="scaleBarPub" style="width:50%"></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="start-banner">
+  <div class="start-banner-card" id="startBanner">
+    <div class="start-banner-title">Start here</div>
+    <div class="start-banner-steps">
+      1. Download your BMI Accrual Reports for <b>both</b> your songwriter account and your publisher account<br>
+      2. Click <b>&uarr; Load statements</b> in the top right<br>
+      3. Drop in each file &mdash; the comparison builds itself, gaps and all
     </div>
   </div>
 </div>
@@ -268,7 +288,15 @@ function bySong(rows){
   return map;
 }
 
+function updateStartState(isEmpty){
+  const banner = document.getElementById('startBanner');
+  const btn = document.getElementById('loadBtn');
+  if(banner) banner.classList.toggle('show', isEmpty);
+  if(btn) btn.classList.toggle('pulse', isEmpty);
+}
+
 function render(){
+  updateStartState(!WRITER.length && !PUB.length);
   const writerTotal = WRITER.reduce((s,r)=>s+r.amt,0);
   const pubTotal = PUB.reduce((s,r)=>s+r.amt,0);
   const grand = writerTotal + pubTotal;
@@ -428,8 +456,9 @@ function handleUpload(input, side){
 }
 
 // ── INIT ─────────────────────────────────────────────────────────────
-WRITER = WRITER_EMBEDDED.slice();
-PUB = PUB_EMBEDDED.slice();
+WRITER = [];
+PUB = [];
+document.getElementById('uploadZone').classList.add('open');
 document.getElementById('heroTitle').addEventListener('input', () => { TITLE_EDITED = true; });
 render();
 </script>
