@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Digital Distribution Ledger — Songwriters Tracking Sheets</title>
+<title>Sales Ledger — Songwriters Tracking Sheets</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -59,6 +59,15 @@ body{font-family:var(--f-body);background:var(--paper);color:var(--ink);min-heig
 .hdr-btn.outline:hover{background:rgba(238,241,236,.14)}
 .hdr-btn.primary{background:var(--brass);color:var(--case-3)}
 .hdr-btn.primary:hover{background:var(--brass-light)}
+@keyframes pulse-glow{0%,100%{box-shadow:0 0 0 0 rgba(198,138,61,.55)}50%{box-shadow:0 0 0 7px rgba(198,138,61,0)}}
+.hdr-btn.outline.pulse{animation:pulse-glow 1.7s ease-in-out infinite;border-color:rgba(198,138,61,.6)}
+.start-banner{max-width:1240px;margin:20px auto 0;padding:0 32px}
+.start-banner-card{background:linear-gradient(90deg, rgba(198,138,61,.08), rgba(198,138,61,.03));border:1px dashed rgba(198,138,61,.4);border-radius:12px;padding:16px 20px;display:none}
+.start-banner-card.show{display:block}
+.start-banner-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.start-banner-title::before{content:'\2191';color:var(--brass);font-weight:700}
+.start-banner-steps{font-size:12px;color:var(--ink-2);line-height:1.9}
+.start-banner-steps b{color:var(--ink)}
 
 /* ── UPLOAD ZONE ── */
 .upload-zone{
@@ -264,7 +273,7 @@ body{font-family:var(--f-body);background:var(--paper);color:var(--ink);min-heig
   </div>
   <div class="hdr-right">
     <a href="../index.html" style="font-family:var(--f-mono);font-size:11px;color:rgba(238,241,236,.5);text-decoration:none;margin-right:4px">&larr; All templates</a>
-    <button class="hdr-btn outline" onclick="toggleUpload()">↑ Load report</button>
+    <button class="hdr-btn outline pulse" id="loadBtn" onclick="toggleUpload()">↑ Load report</button>
     <button class="hdr-btn primary" onclick="window.print()">Export PDF</button>
   </div>
 </div>
@@ -295,6 +304,17 @@ body{font-family:var(--f-body);background:var(--paper);color:var(--ink);min-heig
         <div class="counter-stat"><div class="counter-stat-val" id="counterTracks">0</div><div class="counter-stat-lbl">Tracks paid</div></div>
         <div class="counter-stat"><div class="counter-stat-val" id="counterPlatforms">0</div><div class="counter-stat-lbl">Platforms</div></div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="start-banner">
+  <div class="start-banner-card" id="startBanner">
+    <div class="start-banner-title">Start here</div>
+    <div class="start-banner-steps">
+      1. Download your <b>Digital Distribution Sales</b> export from CD Baby or DistroKid<br>
+      2. Click <b>&uarr; Load report</b> in the top right<br>
+      3. Drop the file in &mdash; everything below fills in automatically
     </div>
   </div>
 </div>
@@ -420,7 +440,15 @@ function vuSegments(pct){
   return html;
 }
 
+function updateStartState(isEmpty){
+  const banner = document.getElementById('startBanner');
+  const btn = document.getElementById('loadBtn');
+  if(banner) banner.classList.toggle('show', isEmpty);
+  if(btn) btn.classList.toggle('pulse', isEmpty);
+}
+
 function render(){
+  updateStartState(!DATA.length);
   if(!DATA.length){
     document.getElementById('ledgerBody').innerHTML = '<tr><td colspan="5"><div class="empty-state">No royalty rows loaded. Load a report to get started.</div></td></tr>';
     return;
@@ -718,8 +746,9 @@ function handleUpload(input){
 }
 
 // ── INIT ─────────────────────────────────────────────────────────────
-DATA = EMBEDDED.slice();
-COUNTRIES = EMBEDDED_COUNTRIES.slice();
+DATA = [];
+COUNTRIES = [];
+document.getElementById('uploadZone').classList.add('open');
 document.getElementById('heroEyebrow').textContent = 'Digital Distribution Sales';
 document.getElementById('hdrPeriod').textContent = 'FULL HISTORY';
 document.getElementById('footerNote').textContent = 'Generated from a Digital Distribution Sales export';
