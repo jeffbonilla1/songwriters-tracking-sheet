@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Actually Changed When CD Baby Shut Down Pro Publishing — Songwriters Tracking Sheets</title>
+<meta name="description" content="CD Baby stopped registering songs with a PRO in August 2023. Here's what that actually means for your royalties, and what to check on your own catalog.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --case:#182e2b; --case-2:#213f3a; --case-3:#0f211e;
+  --brass:#c68a3d; --brass-light:#e8c07f;
+  --paper:#eef1ec; --ink:#182420; --ink-2:#42524b; --muted:#70817a;
+  --surface:#ffffff; --border:#dbe2dc;
+  --vu-green:#4d8a58; --vu-amber:#d9a13b;
+  --f-disp:'Big Shoulders Display',sans-serif;
+  --f-body:'Inter',system-ui,sans-serif;
+  --f-mono:'IBM Plex Mono',monospace;
+  --shadow:0 2px 14px rgba(15,33,30,.08);
+}
+body{font-family:var(--f-body);background:var(--paper);color:var(--ink);min-height:100vh;line-height:1.7}
+a{color:inherit}
+
+.hdr{background:var(--case-3);padding:0 32px;height:60px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(198,138,61,.25)}
+.reel-mark{width:28px;height:28px;flex-shrink:0}
+.reel-mark svg{width:100%;height:100%}
+.hdr-word{font-family:var(--f-disp);font-weight:700;font-size:18px;letter-spacing:.5px;color:var(--paper);text-transform:uppercase}
+.hdr-word span{color:var(--brass)}
+.hdr-back{margin-left:auto;font-family:var(--f-mono);font-size:12px;color:rgba(238,241,236,.6);text-decoration:none}
+.hdr-back:hover{color:var(--brass-light)}
+
+.article-hero{background:linear-gradient(135deg,var(--case) 0%, var(--case-3) 100%);padding:56px 24px 44px}
+.article-hero-inner{max-width:680px;margin:0 auto}
+.art-eyebrow{font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--brass);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.art-eyebrow::before{content:'';width:20px;height:1px;background:var(--brass)}
+.art-title{font-family:var(--f-disp);font-size:34px;font-weight:800;color:var(--paper);line-height:1.1;text-transform:uppercase;letter-spacing:.2px;margin-bottom:14px}
+.art-dek{font-size:15px;color:rgba(238,241,236,.68);line-height:1.6}
+.art-meta{font-family:var(--f-mono);font-size:11px;color:rgba(238,241,236,.4);margin-top:18px}
+
+.article-body{max-width:680px;margin:0 auto;padding:44px 24px 20px}
+.article-body p{font-size:15.5px;color:var(--ink-2);margin-bottom:20px}
+.article-body h2{font-family:var(--f-disp);font-size:22px;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:.2px;margin:36px 0 14px}
+.article-body strong{color:var(--ink);font-weight:700}
+
+.callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--brass);border-radius:10px;padding:18px 22px;margin:28px 0;box-shadow:var(--shadow)}
+.callout-label{font-family:var(--f-mono);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--brass);margin-bottom:8px}
+.callout p{margin-bottom:0;font-size:14.5px}
+
+.cta-box{background:var(--case-3);border-radius:14px;padding:26px 28px;margin:40px 0 8px;text-align:center}
+.cta-label{font-family:var(--f-mono);font-size:10.5px;color:rgba(238,241,236,.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.cta-title{font-family:var(--f-disp);font-size:19px;font-weight:700;color:var(--paper);text-transform:uppercase;margin-bottom:14px}
+.cta-btn{display:inline-block;padding:10px 22px;background:var(--brass);color:var(--case-3);border-radius:8px;font-size:13px;font-weight:700;text-decoration:none}
+.cta-btn:hover{background:var(--brass-light)}
+
+.sources{max-width:680px;margin:36px auto 0;padding:20px 24px 56px;border-top:1px dashed var(--border)}
+.sources-label{font-family:var(--f-mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:8px}
+.sources ul{list-style:none;font-size:12px;color:var(--muted)}
+.sources li{margin-bottom:4px}
+.sources a{color:var(--muted);text-decoration:underline}
+
+.foot{background:var(--case-3);padding:28px 24px;text-align:center}
+.foot-note{font-size:11px;color:rgba(238,241,236,.4);font-family:var(--f-mono)}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="reel-mark">
+    <svg viewBox="0 0 40 40" fill="none">
+      <circle cx="20" cy="20" r="18" stroke="#c68a3d" stroke-width="2"/>
+      <circle cx="20" cy="20" r="5" fill="#c68a3d"/>
+      <circle cx="20" cy="9" r="2.6" fill="#c68a3d" opacity=".7"/>
+      <circle cx="29.5" cy="25.5" r="2.6" fill="#c68a3d" opacity=".7"/>
+      <circle cx="10.5" cy="25.5" r="2.6" fill="#c68a3d" opacity=".7"/>
+    </svg>
+  </div>
+  <div class="hdr-word">Songwriters<span>Sheets</span></div>
+  <a class="hdr-back" href="../index.html#blog">&larr; From the ledger</a>
+</div>
+
+<div class="article-hero">
+  <div class="article-hero-inner">
+    <div class="art-eyebrow">Industry news</div>
+    <div class="art-title">What Actually Changed When CD Baby Shut Down Pro Publishing</div>
+    <div class="art-dek">A breakdown of what artists lost, and what they now have to do themselves.</div>
+    <div class="art-meta">Sentinel Ghost Music &middot; Songwriters Tracking Sheets</div>
+  </div>
+</div>
+
+<div class="article-body">
+
+<p>If you distribute through CD Baby and you've noticed your publishing royalties don't quite add up anymore, there's a real reason for it — and it's not something that happened to you specifically. In August 2023, CD Baby discontinued its Pro Publishing Administration service. If you signed up for it before then, that decision is still quietly shaping what shows up (and doesn't) in your royalty accounts today.</p>
+
+<h2>What Pro Publishing used to do</h2>
+<p>Before the shutdown, CD Baby would register your songs with a performing rights organization (PRO) on your behalf and pass through your performance royalties as part of your CD Baby account. You didn't need to deal with BMI, ASCAP, or SESAC directly — CD Baby handled the registration and the collection, then paid you through the same dashboard as your streaming sales.</p>
+
+<p>That convenience came at a cost most artists never thought much about: CD Baby's own publishing entity sat between you and your PRO. On any song registered through that service, the publisher share of your performance royalties was typically assigned to CD Baby's administration arm, not to you directly.</p>
+
+<h2>What happens to legacy registrations</h2>
+<p>CD Baby still administers songs that were registered before the August 2023 cutoff — but new registrations don't get this treatment anymore. If you've released music since then, CD Baby's own help documentation is direct about it: <strong>you're expected to register with a PRO yourself</strong>, as both a songwriter and, if you want to keep the full publisher share, as your own publisher.</p>
+
+<div class="callout">
+  <div class="callout-label">Worth checking</div>
+  <p>If a song was registered with CD Baby's publishing service before the shutdown, the publisher share might still be assigned to CD Baby's administration entity rather than to you — even if you've since set up your own publishing company for newer releases. The fix usually isn't automatic; it takes a direct request to update the registration.</p>
+</div>
+
+<h2>What to actually do about it</h2>
+<p>If you're self-releasing music and you haven't registered as your own publisher with a PRO, this is the moment to do it. It's typically a one-time affiliation fee, and it means 100% of your performance royalties — writer and publisher share alike — come to you directly instead of routing through a third party. If you already have a publisher entity set up, it's worth pulling your older catalog and checking whether those pre-2023 songs still show a different publisher on file. That's not something CD Baby is likely to flag for you.</p>
+
+</div>
+
+<div class="cta-box">
+  <div class="cta-label">Related template</div>
+  <div class="cta-title">Publishing Royalty Reports</div>
+  <a class="cta-btn" href="../templates/publishing-ledger.html" download="publishing-ledger.html">Get the template — $1.99</a>
+</div>
+
+<div class="sources">
+  <div class="sources-label">Sources</div>
+  <ul>
+    <li><a href="https://support.cdbaby.com" target="_blank" rel="noopener">CD Baby Support &mdash; Publishing Administration FAQ</a></li>
+    <li><a href="https://www.bmi.com" target="_blank" rel="noopener">BMI.com &mdash; Publisher affiliation</a></li>
+  </ul>
+</div>
+
+<div class="foot">
+  <div class="foot-note">Songwriters Tracking Sheets</div>
+</div>
+
+</body>
+</html>
