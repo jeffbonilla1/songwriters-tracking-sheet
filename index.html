@@ -154,7 +154,8 @@ a{color:inherit}
 
 /* BLOG */
 .blog-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;max-width:1160px;margin:0 auto}
-.blog-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 22px}
+.blog-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 22px;transition:box-shadow .2s, transform .2s}
+.blog-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px);border-color:var(--brass)}
 .blog-src{font-family:var(--f-mono);font-size:9.5px;color:var(--brass);letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px}
 .blog-title{font-size:13px;font-weight:700;color:var(--ink);line-height:1.4;margin-bottom:8px}
 .blog-snip{font-size:11.5px;color:var(--muted);line-height:1.6}
@@ -297,7 +298,6 @@ a{color:inherit}
         <div class="tmpl-foot"><span class="tmpl-price">$1.99</span><a class="tmpl-buy" href="templates/licensing-ledger.html" download="licensing-ledger.html">Get template</a></div>
       </div>
     </div>
-    </div>
     <div class="tmpl-card">
       <div class="tmpl-swatch acct">
         <div class="tmpl-swatch-lbl">Account Ledger</div>
@@ -350,24 +350,24 @@ a{color:inherit}
   <div class="wrap" style="text-align:center;margin-bottom:8px">
     <div class="section-eyebrow" style="justify-content:center">From the ledger</div>
     <div class="section-title">Stories worth a musician's time</div>
-    <div class="section-sub" style="margin-left:auto;margin-right:auto;text-align:center">A running feed of royalty, distribution, and rights-collection news pulled from around the web — placeholders below, real feed to come.</div>
+    <div class="section-sub" style="margin-left:auto;margin-right:auto;text-align:center">Real questions from real royalty statements, written up so the next person doesn't have to dig it out themselves.</div>
   </div>
   <div class="blog-grid">
-    <div class="blog-card">
+    <a class="blog-card" href="blog/cd-baby-pro-publishing-shutdown.html" style="text-decoration:none;display:block;color:inherit">
       <div class="blog-src">Industry news</div>
       <div class="blog-title">What actually changed when CD Baby shut down Pro Publishing</div>
       <div class="blog-snip">A breakdown of what artists lost, and what they now have to do themselves.</div>
-    </div>
-    <div class="blog-card">
+    </a>
+    <a class="blog-card" href="blog/mechanical-vs-performance-royalties.html" style="text-decoration:none;display:block;color:inherit">
       <div class="blog-src">How-to</div>
       <div class="blog-title">Mechanical vs. performance royalties, explained without the jargon</div>
       <div class="blog-snip">Why the same stream can generate two separate payments from two separate places.</div>
-    </div>
-    <div class="blog-card">
-      <div class="blog-src">Tools</div>
-      <div class="blog-title">Suno's developer API is coming — here's what it could unlock</div>
-      <div class="blog-snip">A curated early-access program was just announced. What it means for indie tool builders.</div>
-    </div>
+    </a>
+    <a class="blog-card" href="blog/bmi-accrual-threshold-explained.html" style="text-decoration:none;display:block;color:inherit">
+      <div class="blog-src">Money tips</div>
+      <div class="blog-title">Why your BMI dashboard might show $0 (even though you're owed money)</div>
+      <div class="blog-snip">Your accrual report and your dashboard can both be right at the same time. Here's why.</div>
+    </a>
   </div>
 </div>
 
