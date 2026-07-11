@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Your BMI Dashboard Might Show $0 (Even Though You're Owed Money) — Songwriters Tracking Sheets</title>
+<meta name="description" content="Your BMI accrual report shows real money, but your dashboard says $0. Here's why, and what to do about it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --case:#182e2b; --case-2:#213f3a; --case-3:#0f211e;
+  --brass:#c68a3d; --brass-light:#e8c07f;
+  --paper:#eef1ec; --ink:#182420; --ink-2:#42524b; --muted:#70817a;
+  --surface:#ffffff; --border:#dbe2dc;
+  --vu-green:#4d8a58; --vu-amber:#d9a13b; --vu-red:#b8453a;
+  --f-disp:'Big Shoulders Display',sans-serif;
+  --f-body:'Inter',system-ui,sans-serif;
+  --f-mono:'IBM Plex Mono',monospace;
+  --shadow:0 2px 14px rgba(15,33,30,.08);
+}
+body{font-family:var(--f-body);background:var(--paper);color:var(--ink);min-height:100vh;line-height:1.7}
+a{color:inherit}
+
+.hdr{background:var(--case-3);padding:0 32px;height:60px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(198,138,61,.25)}
+.reel-mark{width:28px;height:28px;flex-shrink:0}
+.reel-mark svg{width:100%;height:100%}
+.hdr-word{font-family:var(--f-disp);font-weight:700;font-size:18px;letter-spacing:.5px;color:var(--paper);text-transform:uppercase}
+.hdr-word span{color:var(--brass)}
+.hdr-back{margin-left:auto;font-family:var(--f-mono);font-size:12px;color:rgba(238,241,236,.6);text-decoration:none}
+.hdr-back:hover{color:var(--brass-light)}
+
+.article-hero{background:linear-gradient(135deg,var(--case) 0%, var(--case-3) 100%);padding:56px 24px 44px}
+.article-hero-inner{max-width:680px;margin:0 auto}
+.art-eyebrow{font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--brass);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.art-eyebrow::before{content:'';width:20px;height:1px;background:var(--brass)}
+.art-title{font-family:var(--f-disp);font-size:32px;font-weight:800;color:var(--paper);line-height:1.15;text-transform:uppercase;letter-spacing:.2px;margin-bottom:14px}
+.art-dek{font-size:15px;color:rgba(238,241,236,.68);line-height:1.6}
+.art-meta{font-family:var(--f-mono);font-size:11px;color:rgba(238,241,236,.4);margin-top:18px}
+
+.article-body{max-width:680px;margin:0 auto;padding:44px 24px 20px}
+.article-body p{font-size:15.5px;color:var(--ink-2);margin-bottom:20px}
+.article-body h2{font-family:var(--f-disp);font-size:22px;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:.2px;margin:36px 0 14px}
+.article-body strong{color:var(--ink);font-weight:700}
+
+.thresh-table{width:100%;border-collapse:separate;border-spacing:0;margin:24px 0;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+.thresh-table th{background:var(--case-3);color:rgba(238,241,236,.7);font-family:var(--f-mono);font-size:10px;text-transform:uppercase;letter-spacing:.6px;text-align:left;padding:10px 16px}
+.thresh-table td{padding:12px 16px;font-size:13.5px;border-bottom:1px solid var(--border)}
+.thresh-table tr:last-child td{border-bottom:none}
+.thresh-table td:first-child{font-weight:700;color:var(--ink)}
+
+.callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--brass);border-radius:10px;padding:18px 22px;margin:28px 0;box-shadow:var(--shadow)}
+.callout-label{font-family:var(--f-mono);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--brass);margin-bottom:8px}
+.callout p{margin-bottom:0;font-size:14.5px}
+.callout.warn{border-left-color:var(--vu-red)}
+.callout.warn .callout-label{color:var(--vu-red)}
+
+.cta-box{background:var(--case-3);border-radius:14px;padding:26px 28px;margin:40px 0 8px;text-align:center}
+.cta-label{font-family:var(--f-mono);font-size:10.5px;color:rgba(238,241,236,.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.cta-title{font-family:var(--f-disp);font-size:19px;font-weight:700;color:var(--paper);text-transform:uppercase;margin-bottom:14px}
+.cta-btn{display:inline-block;padding:10px 22px;background:var(--brass);color:var(--case-3);border-radius:8px;font-size:13px;font-weight:700;text-decoration:none}
+.cta-btn:hover{background:var(--brass-light)}
+
+.sources{max-width:680px;margin:36px auto 0;padding:20px 24px 56px;border-top:1px dashed var(--border)}
+.sources-label{font-family:var(--f-mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:8px}
+.sources ul{list-style:none;font-size:12px;color:var(--muted)}
+.sources li{margin-bottom:4px}
+.sources a{color:var(--muted);text-decoration:underline}
+
+.foot{background:var(--case-3);padding:28px 24px;text-align:center}
+.foot-note{font-size:11px;color:rgba(238,241,236,.4);font-family:var(--f-mono)}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="reel-mark">
+    <svg viewBox="0 0 40 40" fill="none">
+      <circle cx="20" cy="20" r="18" stroke="#c68a3d" stroke-width="2"/>
+      <circle cx="20" cy="20" r="5" fill="#c68a3d"/>
+      <circle cx="20" cy="9" r="2.6" fill="#c68a3d" opacity=".7"/>
+      <circle cx="29.5" cy="25.5" r="2.6" fill="#c68a3d" opacity=".7"/>
+      <circle cx="10.5" cy="25.5" r="2.6" fill="#c68a3d" opacity=".7"/>
+    </svg>
+  </div>
+  <div class="hdr-word">Songwriters<span>Sheets</span></div>
+  <a class="hdr-back" href="../index.html#blog">&larr; From the ledger</a>
+</div>
+
+<div class="article-hero">
+  <div class="article-hero-inner">
+    <div class="art-eyebrow">Money tips</div>
+    <div class="art-title">Why Your BMI Dashboard Might Show $0 (Even Though You're Owed Money)</div>
+    <div class="art-dek">Your accrual report shows real dollars. Your dashboard says $0. Both are correct — here's why.</div>
+    <div class="art-meta">Sentinel Ghost Music &middot; Songwriters Tracking Sheets</div>
+  </div>
+</div>
+
+<div class="article-body">
+
+<p>You log into BMI, pull up your Accrual Report, and it shows real money — songs earning, performances counted, dollars accumulating. Then you check the main dashboard and it says <strong>$0</strong>, "No data to display," no statements on file. That's not broken. It's how BMI's payment threshold system is designed to work, and it trips up almost everyone the first time they see it.</p>
+
+<h2>Accrual isn't the same as paid</h2>
+<p>An Accrual Report is a running total of royalties BMI has calculated as yours — but hasn't paid out yet. Nothing shows up on your dashboard, and no Statement gets generated, until that running total crosses a payment threshold. Below the threshold, the money just sits there, quietly accumulating, invisible everywhere except that one accrual report.</p>
+
+<table class="thresh-table">
+  <tr><th>Payment method</th><th>Threshold</th></tr>
+  <tr><td>Direct deposit</td><td>$2</td></tr>
+  <tr><td>Check or wire — most quarters</td><td>$250</td></tr>
+  <tr><td>Check or wire — August distribution</td><td>$25</td></tr>
+</table>
+
+<p>If you're not enrolled in direct deposit, you're working against the $250 (or $25 in August) threshold, not the $2 one. That's the whole gap between "I have real royalties" and "my dashboard says nothing."</p>
+
+<div class="callout">
+  <div class="callout-label">The fast fix</div>
+  <p>Enrolling in direct deposit through your BMI Online Services account drops your threshold to $2. If you're already over that once you enroll, the next quarterly distribution should sweep in whatever's been sitting there.</p>
+</div>
+
+<h2>Why there's no history either</h2>
+<p>The Accrual Report itself isn't an archive — it's a live snapshot. Once you do get paid, that accrual resets to zero and gets replaced by a Statement showing what was actually distributed. There's no built-in view that shows accrual history over time; each report only reflects the current unpaid balance since your last payout (or since you joined, if you've never been paid).</p>
+
+<div class="callout warn">
+  <div class="callout-label">Worth knowing</div>
+  <p>If you want a running record of what's accrued quarter over quarter — instead of a snapshot that resets every time you get paid — that's not something BMI's own dashboard keeps for you. You'd need to save each quarter's report yourself, or track it externally.</p>
+</div>
+
+</div>
+
+<div class="cta-box">
+  <div class="cta-label">Related template</div>
+  <div class="cta-title">Lifetime Account Transactions</div>
+  <a class="cta-btn" href="../templates/account-ledger.html" download="account-ledger.html">Get the template — $2.99</a>
+</div>
+
+<div class="sources">
+  <div class="sources-label">Sources</div>
+  <ul>
+    <li><a href="https://www.bmi.com" target="_blank" rel="noopener">BMI.com &mdash; Frequency of Royalty Payments</a></li>
+  </ul>
+</div>
+
+<div class="foot">
+  <div class="foot-note">Songwriters Tracking Sheets</div>
+</div>
+
+</body>
+</html>
