@@ -12,6 +12,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 40 40%22><circle cx=%2220%22 cy=%2220%22 r=%2218%22 fill=%22%230f211e%22/><circle cx=%2220%22 cy=%2220%22 r=%2214%22 stroke=%22%23c68a3d%22 stroke-width=%222%22 fill=%22none%22/><circle cx=%2220%22 cy=%2220%22 r=%224%22 fill=%22%23c68a3d%22/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://js.stripe.com/v3/"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -127,6 +128,7 @@ a{color:inherit}
 .tmpl-swatch.split{background:linear-gradient(135deg,#1f2f42,#121c29)}
 .tmpl-swatch.acct{background:linear-gradient(135deg,#182e2b,#0f211e)}
 .tmpl-swatch.free{background:linear-gradient(135deg,#3d3016,#211a0b)}
+.tmpl-swatch.bundle{background:linear-gradient(135deg,#3a2260,#1c1030)}
 .tmpl-swatch-lbl{font-family:var(--f-mono);font-size:9.5px;color:rgba(238,241,236,.5);letter-spacing:1px;text-transform:uppercase;position:relative;z-index:1}
 .tmpl-swatch-val{font-family:var(--f-mono);font-size:26px;font-weight:600;color:var(--brass-light);position:relative;z-index:1}
 .tmpl-body{padding:20px 22px 22px}
@@ -273,7 +275,7 @@ a{color:inherit}
         <div class="tmpl-badge">Most popular</div>
         <div class="tmpl-title">Digital Distribution Sales</div>
         <div class="tmpl-desc">Every platform, every artist name, one readable statement. Streams vs. downloads, top countries, month-over-month trend.</div>
-        <div class="tmpl-foot"><span class="tmpl-price">$1.99</span><a class="tmpl-buy" href="templates/sales-ledger.html" download="sales-ledger.html">Get template</a></div>
+        <div class="tmpl-foot"><span class="tmpl-price">$2.99</span><button class="tmpl-buy" onclick="buyTemplate('price_1TtDnbGnyZ8MOYxKcVOMgZg6')">Get template</button></div>
       </div>
     </div>
     <div class="tmpl-card">
@@ -284,7 +286,7 @@ a{color:inherit}
       <div class="tmpl-body">
         <div class="tmpl-title">Mechanical &amp; Publishing Royalties</div>
         <div class="tmpl-desc">See exactly how long each society took to pay you, split by mechanical vs. performance, by territory and source.</div>
-        <div class="tmpl-foot"><span class="tmpl-price">$1.99</span><a class="tmpl-buy" href="templates/publishing-ledger.html" download="publishing-ledger.html">Get template</a></div>
+        <div class="tmpl-foot"><span class="tmpl-price">$2.99</span><button class="tmpl-buy" onclick="buyTemplate('price_1TtDoiGnyZ8MOYxKXOcq3NNO')">Get template</button></div>
       </div>
     </div>
     <div class="tmpl-card">
@@ -295,7 +297,7 @@ a{color:inherit}
       <div class="tmpl-body">
         <div class="tmpl-title">Social Video Monetization Earnings,</div>
         <div class="tmpl-desc">The withheld cover-song and content-ID money most artists never look at, broken down by platform and track.</div>
-        <div class="tmpl-foot"><span class="tmpl-price">$1.99</span><a class="tmpl-buy" href="templates/licensing-ledger.html" download="licensing-ledger.html">Get template</a></div>
+        <div class="tmpl-foot"><span class="tmpl-price">$2.99</span><button class="tmpl-buy" onclick="buyTemplate('price_1TtDpdGnyZ8MOYxK1VAkQNqU')">Get template</button></div>
       </div>
     </div>
     <div class="tmpl-card">
@@ -307,7 +309,19 @@ a{color:inherit}
         <div class="tmpl-badge">New</div>
         <div class="tmpl-title">Lifetime Account Transactions</div>
         <div class="tmpl-desc">Every sale, payout, and fee since day one. Flags canceled or bounced payments so you know if there's money still waiting on you.</div>
-        <div class="tmpl-foot"><span class="tmpl-price">$2.99</span><a class="tmpl-buy" href="templates/account-ledger.html" download="account-ledger.html">Get template</a></div>
+        <div class="tmpl-foot"><span class="tmpl-price">$2.99</span><button class="tmpl-buy" onclick="buyTemplate('price_1TtDqSGnyZ8MOYxKCklNJ4Hz')">Get template</button></div>
+      </div>
+    </div>
+    <div class="tmpl-card">
+      <div class="tmpl-swatch bundle">
+        <div class="tmpl-swatch-lbl">All four templates</div>
+        <div class="tmpl-swatch-val">Bundle</div>
+      </div>
+      <div class="tmpl-body">
+        <div class="tmpl-badge">Best value</div>
+        <div class="tmpl-title">Songwriter Bundle</div>
+        <div class="tmpl-desc">Every template in one purchase — Sales, Publishing, Licensing, and Account Ledger. Keep them all, forever.</div>
+        <div class="tmpl-foot"><span class="tmpl-price">$7.99</span><button class="tmpl-buy" onclick="buyTemplate('price_1TtDrNGnyZ8MOYxKvoY6eOba')">Get bundle</button></div>
       </div>
     </div>
     <div class="tmpl-card">
@@ -331,14 +345,23 @@ a{color:inherit}
     <div class="section-title">Buy it once, keep it forever</div>
     <div class="section-sub" style="margin-left:auto;margin-right:auto;text-align:center">No accounts, no hosting, no subscription. Every template is a single file that runs in your browser.</div>
   </div>
-  <div class="pricing" style="grid-template-columns:1fr;max-width:480px">
-    <div class="price-card hi">
+  <div class="pricing">
+    <div class="price-card">
       <div class="price-lbl">Per template</div>
-      <div class="price-amt">$1–3<span> / template</span></div>
+      <div class="price-amt">$2.99<span> / template</span></div>
       <div class="price-desc">Download the file, open it whenever you want, reload it with a new export every month. It's yours — nothing expires, nothing renews.</div>
       <ul class="price-list">
         <li>Runs entirely in your browser, data never leaves your computer</li>
-      <li>Reusable indefinitely with new exports</li>
+        <li>Reusable indefinitely with new exports</li>
+      </ul>
+    </div>
+    <div class="price-card hi">
+      <div class="price-lbl">Songwriter Bundle</div>
+      <div class="price-amt">$7.99<span> / all four</span></div>
+      <div class="price-desc">Every template in one purchase — Sales, Publishing, Licensing, and Account Ledger. The best way to cover every export you get.</div>
+      <ul class="price-list">
+        <li>Saves over $4 versus buying separately</li>
+        <li>Same one-time purchase, keep forever</li>
       </ul>
     </div>
   </div>
@@ -395,6 +418,21 @@ function closeLightbox(){
   document.getElementById('lightbox').classList.remove('show');
 }
 document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
+
+var stripe = Stripe('pk_live_51TGC0EGnyZ8MOYxKbl2ENjIwVM1VVho1IgMtX4PpkrGIolljUrEKXf2Tu9x2lfqtutJ6lISPDDET7XdnAAW4NTOG00Rao4gjBJ');
+
+function buyTemplate(priceId) {
+  stripe.redirectToCheckout({
+    lineItems: [{ price: priceId, quantity: 1 }],
+    mode: 'payment',
+    successUrl: window.location.origin + '/success/index.html',
+    cancelUrl: window.location.origin + '/'
+  }).then(function(result) {
+    if (result.error) {
+      alert(result.error.message);
+    }
+  });
+}
 </script>
 
 </body>
