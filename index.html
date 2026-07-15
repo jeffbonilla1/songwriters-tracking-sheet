@@ -12,7 +12,6 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 40 40%22><circle cx=%2220%22 cy=%2220%22 r=%2218%22 fill=%22%230f211e%22/><circle cx=%2220%22 cy=%2220%22 r=%2214%22 stroke=%22%23c68a3d%22 stroke-width=%222%22 fill=%22none%22/><circle cx=%2220%22 cy=%2220%22 r=%224%22 fill=%22%23c68a3d%22/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://js.stripe.com/v3/"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -419,19 +418,23 @@ function closeLightbox(){
 }
 document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
 
-var stripe = Stripe('pk_live_51TGC0EGnyZ8MOYxKbl2ENjIwVM1VVho1IgMtX4PpkrGIolljUrEKXf2Tu9x2lfqtutJ6lISPDDET7XdnAAW4NTOG00Rao4gjBJ');
-
 function buyTemplate(priceId) {
-  stripe.redirectToCheckout({
-    lineItems: [{ price: priceId, quantity: 1 }],
-    mode: 'payment',
-    successUrl: window.location.origin + '/success/index.html',
-    cancelUrl: window.location.origin + '/'
-  }).then(function(result) {
-    if (result.error) {
-      alert(result.error.message);
-    }
-  });
+  fetch('/.netlify/functions/create-checkout-session', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ priceId: priceId })
+  })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert(data.error || 'Something went wrong starting checkout. Please try again.');
+      }
+    })
+    .catch(function() {
+      alert('Something went wrong starting checkout. Please try again.');
+    });
 }
 </script>
 
