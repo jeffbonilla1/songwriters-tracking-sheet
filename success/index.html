@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You're all set — Songwriters Tracking Sheets</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 40 40%22><circle cx=%2220%22 cy=%2220%22 r=%2218%22 fill=%22%230f211e%22/><circle cx=%2220%22 cy=%2220%22 r=%2214%22 stroke=%22%23c68a3d%22 stroke-width=%222%22 fill=%22none%22/><circle cx=%2220%22 cy=%2220%22 r=%224%22 fill=%22%23c68a3d%22/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --case:#182e2b;--case-3:#0f211e;
+  --brass:#c68a3d;--brass-light:#e8c07f;
+  --paper:#eef1ec;--ink:#182420;--ink-2:#42524b;--muted:#70817a;
+  --surface:#ffffff;--border:#dbe2dc;
+  --f-disp:'Big Shoulders Display',sans-serif;
+  --f-body:'Inter',system-ui,sans-serif;
+  --f-mono:'IBM Plex Mono',monospace;
+  --shadow-lg:0 14px 40px rgba(15,33,30,.16);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-body);background:var(--paper);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
+
+.hdr{background:var(--case-3);padding:0 32px;height:60px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(198,138,61,.25)}
+.hdr-left{display:flex;align-items:center;gap:14px}
+.hdr-word{font-family:var(--f-disp);font-weight:700;font-size:18px;letter-spacing:.5px;color:var(--paper);text-transform:uppercase;text-decoration:none}
+.hdr-word span{color:var(--brass)}
+
+.hero{background:linear-gradient(135deg,var(--case) 0%,var(--case-3) 100%);padding:64px 32px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;opacity:.5;background-image:repeating-linear-gradient(90deg,rgba(238,241,236,.025) 0 1px,transparent 1px 34px)}
+.hero-inner{position:relative;z-index:1;max-width:600px;margin:0 auto}
+.hero-icon{width:64px;height:64px;margin:0 auto 20px;background:rgba(198,138,61,.15);border:1px solid rgba(198,138,61,.4);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.hero-icon svg{width:30px;height:30px}
+.hero-eyebrow{font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--brass);margin-bottom:14px}
+.hero-title{font-family:var(--f-disp);font-size:44px;font-weight:800;color:var(--paper);line-height:1.05;text-transform:uppercase;letter-spacing:.3px;margin-bottom:16px}
+.hero-title em{font-style:normal;color:var(--brass-light)}
+.hero-sub{font-size:15px;color:rgba(238,241,236,.65);line-height:1.7;max-width:480px;margin:0 auto}
+
+.main{flex:1;padding:56px 32px;max-width:720px;margin:0 auto;width:100%}
+
+.personal-note{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px 32px;margin-bottom:32px;border-left:3px solid var(--brass)}
+.personal-note p{font-size:14.5px;color:var(--ink-2);line-height:1.75}
+.personal-note p+p{margin-top:12px}
+.personal-note .sig{font-family:var(--f-mono);font-size:12px;color:var(--muted);margin-top:16px}
+
+.downloads-title{font-family:var(--f-disp);font-size:22px;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px}
+.downloads-sub{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.6}
+
+.download-list{display:flex;flex-direction:column;gap:12px;margin-bottom:40px}
+.download-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:box-shadow .2s,border-color .2s}
+.download-item:hover{box-shadow:var(--shadow-lg);border-color:var(--brass)}
+.download-info{display:flex;flex-direction:column;gap:3px}
+.download-name{font-size:14px;font-weight:700;color:var(--ink)}
+.download-desc{font-size:11.5px;color:var(--muted)}
+.download-btn{padding:8px 18px;border-radius:8px;background:var(--case-3);color:var(--brass-light);border:none;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;white-space:nowrap;font-family:var(--f-body);display:inline-block}
+.download-btn:hover{background:var(--case);color:var(--brass-light)}
+
+.how-to{background:rgba(198,138,61,.06);border:1px solid rgba(198,138,61,.2);border-radius:14px;padding:22px 26px;margin-bottom:32px}
+.how-to-title{font-family:var(--f-mono);font-size:10.5px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--brass);margin-bottom:14px}
+.how-to ol{list-style:none;display:flex;flex-direction:column;gap:10px;counter-reset:steps}
+.how-to ol li{font-size:13px;color:var(--ink-2);line-height:1.6;padding-left:28px;position:relative;counter-increment:steps}
+.how-to ol li::before{content:counter(steps);position:absolute;left:0;top:0;width:20px;height:20px;background:var(--brass);color:var(--case-3);border-radius:50%;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--f-mono)}
+
+.support{text-align:center;font-size:13px;color:var(--muted);line-height:1.7}
+.support a{color:var(--brass);font-weight:600;text-decoration:none}
+.support a:hover{text-decoration:underline}
+
+.foot{background:var(--case-3);padding:24px 32px;text-align:center;margin-top:auto}
+.foot-note{font-size:11px;color:rgba(238,241,236,.4);font-family:var(--f-mono)}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-left">
+    <a href="/" class="hdr-word">Songwriters<span>TrackingSheets</span></a>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-icon">
+      <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 15L11 21L25 9" stroke="#c68a3d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="hero-eyebrow">Payment confirmed</div>
+    <div class="hero-title">You're all <em>set.</em></div>
+    <div class="hero-sub">Your templates are ready to download. No account, no expiration -- they're yours to keep forever.</div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="personal-note">
+    <p>Thank you for your purchase. I built these because I was tired of opening a CD Baby export and staring at a wall of tab-delimited text that told me nothing useful about my music.</p>
+    <p>These templates are the thing I wished existed. I hope they save you the same headache they saved me. If something isn't working right or a column doesn't line up with your export, reach out -- I'll fix it.</p>
+    <div class="sig">-- Jeff Bonilla, Songwriters Tracking Sheets</div>
+  </div>
+
+  <div class="downloads-title">Your downloads</div>
+  <div class="downloads-sub">We've included all four templates below. Open each one in your browser, drop in your export file, and you're done.</div>
+
+  <div class="download-list">
+    <div class="download-item">
+      <div class="download-info">
+        <div class="download-name">Digital Distribution Sales</div>
+        <div class="download-desc">Streams, downloads, top countries, month-over-month trend</div>
+      </div>
+      <a class="download-btn" href="/templates/sales-ledger.html" download="sales-ledger.html">Download</a>
+    </div>
+    <div class="download-item">
+      <div class="download-info">
+        <div class="download-name">Mechanical &amp; Publishing Royalties</div>
+        <div class="download-desc">Society payments split by mechanical vs. performance, by territory</div>
+      </div>
+      <a class="download-btn" href="/templates/publishing-ledger.html" download="publishing-ledger.html">Download</a>
+    </div>
+    <div class="download-item">
+      <div class="download-info">
+        <div class="download-name">Social Video Monetization Earnings</div>
+        <div class="download-desc">Content ID and cover song money broken down by platform and track</div>
+      </div>
+      <a class="download-btn" href="/templates/licensing-ledger.html" download="licensing-ledger.html">Download</a>
+    </div>
+    <div class="download-item">
+      <div class="download-info">
+        <div class="download-name">Lifetime Account Transactions</div>
+        <div class="download-desc">Every sale, payout, and fee since day one -- flags missing payments</div>
+      </div>
+      <a class="download-btn" href="/templates/account-ledger.html" download="account-ledger.html">Download</a>
+    </div>
+  </div>
+
+  <div class="how-to">
+    <div class="how-to-title">How to use your template</div>
+    <ol>
+      <li>Download the template file and save it somewhere on your computer.</li>
+      <li>Open it in any browser -- Chrome, Safari, Firefox all work fine.</li>
+      <li>Download your raw export from CD Baby and drop it into the template using the upload button.</li>
+      <li>Your data populates instantly. Filter, sort, and explore. Export to PDF whenever you need a clean statement.</li>
+      <li>Next month, just drop in a new export. The file resets and runs fresh every time.</li>
+    </ol>
+  </div>
+
+  <div class="support">
+    Something not working right with your export?<br>
+    <a href="mailto:support@songwriterstrackingsheets.store">support@songwriterstrackingsheets.store</a> -- I read every message.
+  </div>
+
+</div>
+
+<div class="foot">
+  <div class="foot-note">Songwriters Tracking Sheets</div>
+</div>
+
+</body>
+</html>
