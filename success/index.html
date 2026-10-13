@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>You're all set — Songwriters Tracking Sheets</title>
+<title>You're all set | Songwriters Tracking Sheets</title>
+<meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 40 40%22><circle cx=%2220%22 cy=%2220%22 r=%2218%22 fill=%22%230f211e%22/><circle cx=%2220%22 cy=%2220%22 r=%2214%22 stroke=%22%23c68a3d%22 stroke-width=%222%22 fill=%22none%22/><circle cx=%2220%22 cy=%2220%22 r=%224%22 fill=%22%23c68a3d%22/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -87,7 +88,7 @@ body{font-family:var(--f-body);background:var(--paper);color:var(--ink);min-heig
     </div>
     <div class="hero-eyebrow">Payment confirmed</div>
     <div class="hero-title">You're all <em>set.</em></div>
-    <div class="hero-sub">Your templates are ready to download. No account, no expiration -- they're yours to keep forever.</div>
+    <div class="hero-sub">Your templates are ready to download. No account, no expiration. They're yours to keep forever.</div>
   </div>
 </div>
 
@@ -95,49 +96,20 @@ body{font-family:var(--f-body);background:var(--paper);color:var(--ink);min-heig
 
   <div class="personal-note">
     <p>Thank you for your purchase. I built these because I was tired of opening a CD Baby export and staring at a wall of tab-delimited text that told me nothing useful about my music.</p>
-    <p>These templates are the thing I wished existed. I hope they save you the same headache they saved me. If something isn't working right or a column doesn't line up with your export, reach out -- I'll fix it.</p>
-    <div class="sig">-- Jeff Bonilla, Songwriters Tracking Sheets</div>
+    <p>These templates are the thing I wished existed. I hope they save you the same headache they saved me. If something isn't working right or a column doesn't line up with your export, reach out and I'll fix it.</p>
+    <div class="sig">Jeff Bonilla, Songwriters Tracking Sheets</div>
   </div>
 
   <div class="downloads-title">Your downloads</div>
-  <div class="downloads-sub">We've included all four templates below. Open each one in your browser, drop in your export file, and you're done.</div>
+  <div class="downloads-sub" id="dlSub">Checking your purchase...</div>
 
-  <div class="download-list">
-    <div class="download-item">
-      <div class="download-info">
-        <div class="download-name">Digital Distribution Sales</div>
-        <div class="download-desc">Streams, downloads, top countries, month-over-month trend</div>
-      </div>
-      <a class="download-btn" href="/templates/sales-ledger.html" download="sales-ledger.html">Download</a>
-    </div>
-    <div class="download-item">
-      <div class="download-info">
-        <div class="download-name">Mechanical &amp; Publishing Royalties</div>
-        <div class="download-desc">Society payments split by mechanical vs. performance, by territory</div>
-      </div>
-      <a class="download-btn" href="/templates/publishing-ledger.html" download="publishing-ledger.html">Download</a>
-    </div>
-    <div class="download-item">
-      <div class="download-info">
-        <div class="download-name">Social Video Monetization Earnings</div>
-        <div class="download-desc">Content ID and cover song money broken down by platform and track</div>
-      </div>
-      <a class="download-btn" href="/templates/licensing-ledger.html" download="licensing-ledger.html">Download</a>
-    </div>
-    <div class="download-item">
-      <div class="download-info">
-        <div class="download-name">Lifetime Account Transactions</div>
-        <div class="download-desc">Every sale, payout, and fee since day one -- flags missing payments</div>
-      </div>
-      <a class="download-btn" href="/templates/account-ledger.html" download="account-ledger.html">Download</a>
-    </div>
-  </div>
+  <div class="download-list" id="dlList"></div>
 
   <div class="how-to">
     <div class="how-to-title">How to use your template</div>
     <ol>
       <li>Download the template file and save it somewhere on your computer.</li>
-      <li>Open it in any browser -- Chrome, Safari, Firefox all work fine.</li>
+      <li>Open it in any browser. Chrome, Safari, and Firefox all work fine.</li>
       <li>Download your raw export from CD Baby and drop it into the template using the upload button.</li>
       <li>Your data populates instantly. Filter, sort, and explore. Export to PDF whenever you need a clean statement.</li>
       <li>Next month, just drop in a new export. The file resets and runs fresh every time.</li>
@@ -146,7 +118,7 @@ body{font-family:var(--f-body);background:var(--paper);color:var(--ink);min-heig
 
   <div class="support">
     Something not working right with your export?<br>
-    <a href="mailto:support@songwriterstrackingsheets.store">support@songwriterstrackingsheets.store</a> -- I read every message.
+    <a href="mailto:support@songwriterstrackingsheets.store">support@songwriterstrackingsheets.store</a><br>I read every message.
   </div>
 
 </div>
@@ -155,5 +127,35 @@ body{font-family:var(--f-body);background:var(--paper);color:var(--ink);min-heig
   <div class="foot-note">Songwriters Tracking Sheets</div>
 </div>
 
+<script>
+(function(){
+  var sid = new URLSearchParams(location.search).get('session_id');
+  var list = document.getElementById('dlList'), sub = document.getElementById('dlSub');
+  var fn = '/.netlify/functions/get-downloads';
+  function fail(msg){
+    sub.innerHTML = msg + ' Email <a href="mailto:support@songwriterstrackingsheets.store" style="color:var(--brass);font-weight:600">support@songwriterstrackingsheets.store</a> with your Stripe receipt and I\'ll send your templates right away.';
+  }
+  if(!sid){ fail("We couldn't find your purchase details on this page."); return; }
+  fetch(fn + '?session_id=' + encodeURIComponent(sid))
+    .then(function(r){ return r.json().then(function(d){ return {ok:r.ok, d:d}; }); })
+    .then(function(res){
+      if(!res.ok || !res.d.files){ fail(res.d.error || "We couldn't confirm your purchase."); return; }
+      var n = res.d.files.length;
+      sub.textContent = (n === 1 ? 'Your template is below.' : 'Your ' + n + ' templates are below.') + ' Open each one in your browser, drop in your export file, and you\'re done. Bookmark this page if you want to download again later.';
+      res.d.files.forEach(function(f){
+        var item = document.createElement('div'); item.className = 'download-item';
+        var info = document.createElement('div'); info.className = 'download-info';
+        var nm = document.createElement('div'); nm.className = 'download-name'; nm.textContent = f.name;
+        var ds = document.createElement('div'); ds.className = 'download-desc'; ds.textContent = f.desc;
+        info.appendChild(nm); info.appendChild(ds);
+        var a = document.createElement('a'); a.className = 'download-btn'; a.textContent = 'Download';
+        a.href = fn + '?session_id=' + encodeURIComponent(sid) + '&file=' + encodeURIComponent(f.key);
+        a.setAttribute('download', f.file);
+        item.appendChild(info); item.appendChild(a); list.appendChild(item);
+      });
+    })
+    .catch(function(){ fail("Something went wrong loading your downloads."); });
+})();
+</script>
 </body>
 </html>
