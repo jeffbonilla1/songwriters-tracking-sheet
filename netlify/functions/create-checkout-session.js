@@ -48,7 +48,9 @@ exports.handler = async function (event) {
   params.append("mode", "payment");
   params.append("line_items[0][price]", priceId);
   params.append("line_items[0][quantity]", "1");
-  params.append("success_url", `${origin}/success/index.html`);
+  // {CHECKOUT_SESSION_ID} is filled in by Stripe, so the success page can
+  // prove the purchase to get-downloads.js before showing any files.
+  params.append("success_url", `${origin}/success/?session_id={CHECKOUT_SESSION_ID}`);
   params.append("cancel_url", `${origin}/`);
 
   try {
