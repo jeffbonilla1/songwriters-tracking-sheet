@@ -1,2 +1,42 @@
 [build]
   functions = "netlify/functions"
+
+[functions]
+  # Bundle the paid templates into the functions so get-downloads.js can read them.
+  included_files = ["private-templates/**"]
+
+# The paid templates must never be served directly from the website.
+[[redirects]]
+  from = "/private-templates/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+# Old public addresses of the paid templates now point to the store.
+[[redirects]]
+  from = "/templates/sales-ledger.html"
+  to = "/#gallery"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/templates/publishing-ledger.html"
+  to = "/#gallery"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/templates/licensing-ledger.html"
+  to = "/#gallery"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/templates/account-ledger.html"
+  to = "/#gallery"
+  status = 301
+  force = true
+
+# Keep the purchase page out of Google.
+[[headers]]
+  for = "/success/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
