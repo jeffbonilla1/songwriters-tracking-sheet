@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>You're all set | Songwriters Tracking Sheets</title>
+<title>You're all set — Songwriters Tracking Sheets</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 40 40%22><circle cx=%2220%22 cy=%2220%22 r=%2218%22 fill=%22%230f211e%22/><circle cx=%2220%22 cy=%2220%22 r=%2214%22 stroke=%22%23c68a3d%22 stroke-width=%222%22 fill=%22none%22/><circle cx=%2220%22 cy=%2220%22 r=%224%22 fill=%22%23c68a3d%22/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,61 +20,68 @@
   --f-mono:'IBM Plex Mono',monospace;
   --shadow-lg:0 14px 40px rgba(15,33,30,.16);
 }
-html{scroll-behavior:smooth}
 body{font-family:var(--f-body);background:var(--paper);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
-
-.hdr{background:var(--case-3);padding:0 32px;height:60px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(198,138,61,.25)}
+.hdr{background:var(--case-3);padding:0 32px;height:60px;display:flex;align-items:center;border-bottom:1px solid rgba(198,138,61,.25)}
 .hdr-left{display:flex;align-items:center;gap:14px}
+.reel-mark{width:28px;height:28px;flex-shrink:0}
+.reel-mark svg{width:100%;height:100%}
 .hdr-word{font-family:var(--f-disp);font-weight:700;font-size:18px;letter-spacing:.5px;color:var(--paper);text-transform:uppercase;text-decoration:none}
 .hdr-word span{color:var(--brass)}
-
-.hero{background:linear-gradient(135deg,var(--case) 0%,var(--case-3) 100%);padding:64px 32px;text-align:center;position:relative;overflow:hidden}
+.hero{background:linear-gradient(135deg,var(--case) 0%,var(--case-3) 100%);padding:56px 32px;text-align:center;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;opacity:.5;background-image:repeating-linear-gradient(90deg,rgba(238,241,236,.025) 0 1px,transparent 1px 34px)}
 .hero-inner{position:relative;z-index:1;max-width:600px;margin:0 auto}
-.hero-icon{width:64px;height:64px;margin:0 auto 20px;background:rgba(198,138,61,.15);border:1px solid rgba(198,138,61,.4);border-radius:50%;display:flex;align-items:center;justify-content:center}
-.hero-icon svg{width:30px;height:30px}
-.hero-eyebrow{font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--brass);margin-bottom:14px}
-.hero-title{font-family:var(--f-disp);font-size:44px;font-weight:800;color:var(--paper);line-height:1.05;text-transform:uppercase;letter-spacing:.3px;margin-bottom:16px}
+.hero-icon{width:60px;height:60px;margin:0 auto 18px;background:rgba(198,138,61,.15);border:1px solid rgba(198,138,61,.4);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.hero-eyebrow{font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--brass);margin-bottom:12px}
+.hero-title{font-family:var(--f-disp);font-size:40px;font-weight:800;color:var(--paper);text-transform:uppercase;letter-spacing:.3px;margin-bottom:14px}
 .hero-title em{font-style:normal;color:var(--brass-light)}
-.hero-sub{font-size:15px;color:rgba(238,241,236,.65);line-height:1.7;max-width:480px;margin:0 auto}
-
-.main{flex:1;padding:56px 32px;max-width:720px;margin:0 auto;width:100%}
-
-.personal-note{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px 32px;margin-bottom:32px;border-left:3px solid var(--brass)}
-.personal-note p{font-size:14.5px;color:var(--ink-2);line-height:1.75}
-.personal-note p+p{margin-top:12px}
-.personal-note .sig{font-family:var(--f-mono);font-size:12px;color:var(--muted);margin-top:16px}
-
-.downloads-title{font-family:var(--f-disp);font-size:22px;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px}
-.downloads-sub{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.6}
-
-.download-list{display:flex;flex-direction:column;gap:12px;margin-bottom:40px}
-.download-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:box-shadow .2s,border-color .2s}
+.hero-sub{font-size:14px;color:rgba(238,241,236,.65);line-height:1.7}
+.main{flex:1;padding:48px 32px;max-width:720px;margin:0 auto;width:100%}
+.personal-note{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px 28px;margin-bottom:28px;border-left:3px solid var(--brass)}
+.personal-note p{font-size:14px;color:var(--ink-2);line-height:1.75}
+.personal-note p+p{margin-top:10px}
+.personal-note .sig{font-family:var(--f-mono);font-size:12px;color:var(--muted);margin-top:14px}
+.downloads-title{font-family:var(--f-disp);font-size:20px;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px}
+.downloads-sub{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.6}
+.download-list{display:flex;flex-direction:column;gap:10px;margin-bottom:32px}
+.download-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:box-shadow .2s,border-color .2s}
 .download-item:hover{box-shadow:var(--shadow-lg);border-color:var(--brass)}
 .download-info{display:flex;flex-direction:column;gap:3px}
 .download-name{font-size:14px;font-weight:700;color:var(--ink)}
 .download-desc{font-size:11.5px;color:var(--muted)}
-.download-btn{padding:8px 18px;border-radius:8px;background:var(--case-3);color:var(--brass-light);border:none;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;white-space:nowrap;font-family:var(--f-body);display:inline-block}
+.download-btn{padding:8px 16px;border-radius:8px;background:var(--case-3);color:var(--brass-light);border:none;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;white-space:nowrap;font-family:var(--f-body);display:inline-block}
 .download-btn:hover{background:var(--case);color:var(--brass-light)}
-
-.how-to{background:rgba(198,138,61,.06);border:1px solid rgba(198,138,61,.2);border-radius:14px;padding:22px 26px;margin-bottom:32px}
-.how-to-title{font-family:var(--f-mono);font-size:10.5px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--brass);margin-bottom:14px}
-.how-to ol{list-style:none;display:flex;flex-direction:column;gap:10px;counter-reset:steps}
+.download-btn:disabled{opacity:.5;cursor:not-allowed}
+.how-to{background:rgba(198,138,61,.06);border:1px solid rgba(198,138,61,.2);border-radius:14px;padding:20px 24px;margin-bottom:28px}
+.how-to-title{font-family:var(--f-mono);font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--brass);margin-bottom:12px}
+.how-to ol{list-style:none;display:flex;flex-direction:column;gap:8px;counter-reset:steps}
 .how-to ol li{font-size:13px;color:var(--ink-2);line-height:1.6;padding-left:28px;position:relative;counter-increment:steps}
 .how-to ol li::before{content:counter(steps);position:absolute;left:0;top:0;width:20px;height:20px;background:var(--brass);color:var(--case-3);border-radius:50%;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--f-mono)}
-
 .support{text-align:center;font-size:13px;color:var(--muted);line-height:1.7}
 .support a{color:var(--brass);font-weight:600;text-decoration:none}
-.support a:hover{text-decoration:underline}
-
+.loading-state{text-align:center;padding:40px;color:var(--muted);font-family:var(--f-mono);font-size:13px}
+.error-state{background:#fff5f5;border:1px solid #fca5a5;border-radius:12px;padding:20px 24px;text-align:center;margin-bottom:24px;display:none}
+.error-state p{font-size:13px;color:#b91c1c;line-height:1.6}
 .foot{background:var(--case-3);padding:24px 32px;text-align:center;margin-top:auto}
 .foot-note{font-size:11px;color:rgba(238,241,236,.4);font-family:var(--f-mono)}
+@media(max-width:600px){
+  .download-item{flex-direction:column;align-items:flex-start}
+  .hero-title{font-size:30px}
+}
 </style>
 </head>
 <body>
 
 <div class="hdr">
   <div class="hdr-left">
+    <div class="reel-mark">
+      <svg viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18" stroke="#c68a3d" stroke-width="2"/>
+        <circle cx="20" cy="20" r="5" fill="#c68a3d"/>
+        <circle cx="20" cy="9" r="2.6" fill="#c68a3d" opacity=".7"/>
+        <circle cx="29.5" cy="25.5" r="2.6" fill="#c68a3d" opacity=".7"/>
+        <circle cx="10.5" cy="25.5" r="2.6" fill="#c68a3d" opacity=".7"/>
+      </svg>
+    </div>
     <a href="/" class="hdr-word">Songwriters<span>TrackingSheets</span></a>
   </div>
 </div>
@@ -82,13 +89,13 @@ body{font-family:var(--f-body);background:var(--paper);color:var(--ink);min-heig
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-icon">
-      <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M5 15L11 21L25 9" stroke="#c68a3d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <path d="M4 14L10 20L24 8" stroke="#c68a3d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
     <div class="hero-eyebrow">Payment confirmed</div>
     <div class="hero-title">You're all <em>set.</em></div>
-    <div class="hero-sub">Your templates are ready to download. No account, no expiration. They're yours to keep forever.</div>
+    <div class="hero-sub">Your templates are ready below. No account, no expiration -- they're yours to keep forever.</div>
   </div>
 </div>
 
@@ -96,20 +103,28 @@ body{font-family:var(--f-body);background:var(--paper);color:var(--ink);min-heig
 
   <div class="personal-note">
     <p>Thank you for your purchase. I built these because I was tired of opening a CD Baby export and staring at a wall of tab-delimited text that told me nothing useful about my music.</p>
-    <p>These templates are the thing I wished existed. I hope they save you the same headache they saved me. If something isn't working right or a column doesn't line up with your export, reach out and I'll fix it.</p>
-    <div class="sig">Jeff Bonilla, Songwriters Tracking Sheets</div>
+    <p>These templates are the thing I wished existed. If something isn't working right or a column doesn't line up with your export, reach out -- I'll fix it.</p>
+    <div class="sig">-- Jeff Bonilla, Songwriters Tracking Sheets</div>
   </div>
 
-  <div class="downloads-title">Your downloads</div>
-  <div class="downloads-sub" id="dlSub">Checking your purchase...</div>
+  <div class="error-state" id="errorState">
+    <p id="errorMsg">We couldn't verify your purchase. Please contact support and we'll sort it out right away.</p>
+  </div>
 
-  <div class="download-list" id="dlList"></div>
+  <div id="downloadSection">
+    <div class="loading-state" id="loadingState">Verifying your purchase...</div>
+    <div id="downloadContent" style="display:none">
+      <div class="downloads-title">Your downloads</div>
+      <div class="downloads-sub">Click Download next to each template. Open it in your browser and drop in your CD Baby export.</div>
+      <div class="download-list" id="downloadList"></div>
+    </div>
+  </div>
 
   <div class="how-to">
     <div class="how-to-title">How to use your template</div>
     <ol>
       <li>Download the template file and save it somewhere on your computer.</li>
-      <li>Open it in any browser. Chrome, Safari, and Firefox all work fine.</li>
+      <li>Open it in any browser -- Chrome, Safari, Firefox all work fine.</li>
       <li>Download your raw export from CD Baby and drop it into the template using the upload button.</li>
       <li>Your data populates instantly. Filter, sort, and explore. Export to PDF whenever you need a clean statement.</li>
       <li>Next month, just drop in a new export. The file resets and runs fresh every time.</li>
@@ -118,7 +133,7 @@ body{font-family:var(--f-body);background:var(--paper);color:var(--ink);min-heig
 
   <div class="support">
     Something not working right with your export?<br>
-    <a href="mailto:support@songwriterstrackingsheets.store">support@songwriterstrackingsheets.store</a><br>I read every message.
+    <a href="mailto:support@songwriterstrackingsheets.store">support@songwriterstrackingsheets.store</a> -- I read every message.
   </div>
 
 </div>
@@ -128,34 +143,59 @@ body{font-family:var(--f-body);background:var(--paper);color:var(--ink);min-heig
 </div>
 
 <script>
-(function(){
-  var sid = new URLSearchParams(location.search).get('session_id');
-  var list = document.getElementById('dlList'), sub = document.getElementById('dlSub');
-  var fn = '/.netlify/functions/get-downloads';
-  function fail(msg){
-    sub.innerHTML = msg + ' Email <a href="mailto:support@songwriterstrackingsheets.store" style="color:var(--brass);font-weight:600">support@songwriterstrackingsheets.store</a> with your Stripe receipt and I\'ll send your templates right away.';
+(async function() {
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get('session_id');
+
+  const loadingEl = document.getElementById('loadingState');
+  const contentEl = document.getElementById('downloadContent');
+  const listEl = document.getElementById('downloadList');
+  const errorEl = document.getElementById('errorState');
+  const errorMsg = document.getElementById('errorMsg');
+
+  function showError(msg) {
+    loadingEl.style.display = 'none';
+    errorEl.style.display = 'block';
+    if (msg) errorMsg.textContent = msg;
   }
-  if(!sid){ fail("We couldn't find your purchase details on this page."); return; }
-  fetch(fn + '?session_id=' + encodeURIComponent(sid))
-    .then(function(r){ return r.json().then(function(d){ return {ok:r.ok, d:d}; }); })
-    .then(function(res){
-      if(!res.ok || !res.d.files){ fail(res.d.error || "We couldn't confirm your purchase."); return; }
-      var n = res.d.files.length;
-      sub.textContent = (n === 1 ? 'Your template is below.' : 'Your ' + n + ' templates are below.') + ' Open each one in your browser, drop in your export file, and you\'re done. Bookmark this page if you want to download again later.';
-      res.d.files.forEach(function(f){
-        var item = document.createElement('div'); item.className = 'download-item';
-        var info = document.createElement('div'); info.className = 'download-info';
-        var nm = document.createElement('div'); nm.className = 'download-name'; nm.textContent = f.name;
-        var ds = document.createElement('div'); ds.className = 'download-desc'; ds.textContent = f.desc;
-        info.appendChild(nm); info.appendChild(ds);
-        var a = document.createElement('a'); a.className = 'download-btn'; a.textContent = 'Download';
-        a.href = fn + '?session_id=' + encodeURIComponent(sid) + '&file=' + encodeURIComponent(f.key);
-        a.setAttribute('download', f.file);
-        item.appendChild(info); item.appendChild(a); list.appendChild(item);
-      });
-    })
-    .catch(function(){ fail("Something went wrong loading your downloads."); });
+
+  if (!sessionId) {
+    showError("No purchase reference found. If you just completed a purchase, please check your email for a receipt link, or contact support.");
+    return;
+  }
+
+  try {
+    const res = await fetch('/.netlify/functions/get-downloads?session_id=' + encodeURIComponent(sessionId));
+    const data = await res.json();
+
+    if (!res.ok) {
+      showError(data.error || "We couldn't verify your purchase. Please contact support.");
+      return;
+    }
+
+    loadingEl.style.display = 'none';
+    contentEl.style.display = 'block';
+
+    const descriptions = {
+      sales: "Streams, downloads, top countries, month-over-month trend",
+      publishing: "Society payments split by mechanical vs. performance, by territory",
+      licensing: "Content ID and cover song money broken down by platform and track",
+      account: "Every sale, payout, and fee since day one. Flags missing payments."
+    };
+
+    data.files.forEach(function(f) {
+      const downloadUrl = '/.netlify/functions/get-downloads?session_id=' + encodeURIComponent(sessionId) + '&file=' + encodeURIComponent(f.key);
+      const item = document.createElement('div');
+      item.className = 'download-item';
+      item.innerHTML = '<div class="download-info"><div class="download-name">' + f.name + '</div><div class="download-desc">' + (descriptions[f.key] || f.desc) + '</div></div><a class="download-btn" href="' + downloadUrl + '" download="' + f.file + '">Download</a>';
+      listEl.appendChild(item);
+    });
+
+  } catch (e) {
+    showError("Something went wrong loading your downloads. Please try refreshing, or contact support.");
+  }
 })();
 </script>
+
 </body>
 </html>
